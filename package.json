@@ -21,7 +21,6 @@
     "socket-io-anti-spam": "^2.5.0",
     "socket.io": "^4.6.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jtoufik/connecting-people-realtime-web-app-oba.git"
