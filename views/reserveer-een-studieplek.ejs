@@ -1,0 +1,55 @@
+<%- include('./partials/head') %>
+
+<!-- De opmaak van de header  -->
+<%- include('./partials/header') %>
+
+<link rel="stylesheet" href="./style/reservations.css" />
+
+<main>
+    <section class="section-studyplace">
+        <article>
+            <picture>
+                <picture>
+                    <source media="(max-width: 799px)" srcset="elva-480w-close-portrait.jpg" />
+                    <source media="(min-width: 800px)" srcset="elva-800w.jpg" />
+                    <img src="https://media.graphassets.com/7E2PyKD9RweDN2WLTS3N" alt="" />                  
+            </picture>
+        </article>
+        <article>
+        <h1>Reserveer een studieplek</h1>
+        <form class="form-reservate" action="/reserveer-een-studieplek" method="post">
+            <fieldset>
+				<legend>Persoonlijke gegevens</legend>
+                <input
+                    required
+                    id="id"
+                    type="text"
+                    name="id"
+                    value="<%= locals.studieplekReserveringen?.id ?? 'clgnoumd6fttt0buw6fui8yr' %>"
+                    hidden
+                 />
+				<label for="beginTijd">Wanneer wilt u reserveren?</label>
+                <input
+                  required
+                  id="beginTijd"
+                  type="datetime-local"
+                  name="beginTijd"
+                  value="<%= locals.studieplekReserveringen?.beginTijd ? locals.studieplekReserveringen.beginTijd.toISOString().slice(0, -8) : '2023-04-19T13:30:00+00:00Z' %>"
+                />
+              
+				<label for="vestigingId">Bij welke vestiging wilt u reserveren?</label>
+				<input
+					required
+					id="vestigingId"
+					type="text"
+					name="vestigingId"
+					value="<%= locals.studieplekReserveringen?.vestigingId ?? 'OBA Oosterdok' %>"
+				/>
+                <button class="form-button-submit" type="submit">Verzenden</button>
+			</fieldset>
+        </form>
+    </article>
+    </section>
+</main>
+
+<%- include('./partials/foot') %>

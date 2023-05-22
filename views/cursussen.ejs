@@ -1,0 +1,32 @@
+<%- include('./partials/head.ejs') %>
+<%- include('./partials/header.ejs') %>
+
+<section>
+  <h2> Cursussen</h2>
+
+  <div class="wrapper">
+      <i class=" arrow-carousel material-symbols-outlined">
+          chevron_left
+      </i>
+
+      <ul class="carousel">
+          <% results.forEach(result => { %>
+          <li class="book">
+              <a href="/item?id=<%= result.id %>" class="book-a">
+                  <picture class="book-picture">
+                      <img src="<%= result.coverimages %> " alt="<%= result.titles[0] %>">
+                  </picture>
+              </a>
+          </li>
+          <% }); %>
+      </ul>
+      
+      <i class=" arrow-carousel material-symbols-outlined">
+          chevron_right
+      </i>
+  </div>
+</section>
+
+
+
+<%- include('./partials/foot.ejs') %>

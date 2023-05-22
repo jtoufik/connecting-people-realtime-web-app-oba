@@ -1,5 +1,5 @@
 // Importeert basis modules uit npm
-import express, { response } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import bodyParser from 'body-parser';
 
@@ -19,7 +19,7 @@ const io = new Server(http)
 const port = process.env.PORT || 9000
 
 // Serveer client-side bestanden
-server.use(express.static(path.resolve('public')))
+server.use(express.static("public"));
 server.set("views", "./views")
 
 // Maakt een route voor de index
@@ -271,7 +271,25 @@ server.get("/draw", (request, response) => {
     fetchJson(defaultUrl).then((data) => {
 		response.render("draw", data);
 	});
-})
+});
+
+// Regelt het realtime tekenen
+
+// Socket.IO verbinding
+io.on('connection', (socket) => {
+  console.log('Een gebruiker heeft verbinding gemaakt');
+
+  // Luister naar tekengebeurtenis
+  socket.on('teken', (data) => {
+    // Stuur het tekengegevens naar alle verbonden clients
+    io.emit('teken', data);
+  });
+
+  // Afhandelen van ontkoppeling
+  socket.on('disconnect', () => {
+    console.log('Een gebruiker heeft de verbinding verbroken');
+  });
+});
 
 /**
  * fetchJson() is a wrapper for the experimental node fetch api. It fetches the url

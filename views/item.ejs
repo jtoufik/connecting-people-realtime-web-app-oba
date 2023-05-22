@@ -1,0 +1,35 @@
+<%- include('./partials/head') %>
+
+<!-- De opmaak van de header  -->
+<%- include('./partials/header') %>
+
+<main class="item">
+	<section class="item-image">
+		<picture>
+			<source srcset="" />
+			<img class="item-image" width="200" height="300" src="<%= results[0].coverimages[1] %>" alt="" />
+		</picture>
+	</section>
+	<section class="discription">
+		<h1><%= results[0].titles[0] %></h1>
+		<h2><%= results[0].authors[0] %></h2>
+		<dl>
+			<dt>Uitgeverij</dt>
+			<dd><%= results[0].publisher %></dd>
+			<dt>Genre</dt>
+			<dd><%= results['subject-topical'] || 'Onbekend' %></dd>
+			<dt>Taal</dt>
+			<dd><%= results[0].languages %></dd>
+		</dl>
+		<h2>Samenvatting</h2>
+		<p><%= results[0].summaries %></p>
+		<a href="reserveren?id=<%= results[0].id %>">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M4 4.99998H6V3.74998C6 3.19769 6.44772 2.74998 7 2.74998C7.55229 2.74998 8 3.19769 8 3.74998V4.99998H16V3.74998C16 3.19769 16.4477 2.74998 17 2.74998C17.5523 2.74998 18 3.19769 18 3.74998V4.99998H20C21.1046 4.99998 22 5.89541 22 6.99998V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V6.99998C2 5.89541 2.89543 4.99998 4 4.99998ZM4 19L4 11H20V19H4ZM20 6.99998V8.99998H4V6.99998H20Z" fill="black"/>
+			</svg>
+			Reserveer dit exemplaar</a>
+	</section>
+</main>
+
+<!-- De opmaak van de footer  -->
+<%- include('./partials/foot') %>

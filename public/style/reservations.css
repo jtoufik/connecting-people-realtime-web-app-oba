@@ -1,0 +1,174 @@
+/* ======================= MAIN ======================= */
+main > section:nth-of-type(1) {
+    height: auto;
+}
+
+.section-studyplace {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 8em;
+}
+
+.section-studyplace article {
+    width: 100%;
+}
+
+.section-studyplace picture {
+    width: fit-content;
+    display: block;
+    padding: var(--u-default);
+    margin: auto;
+}
+
+.section-studyplace .item-image {
+    margin: auto;
+    display: block;
+    height: 12.5em;
+}
+
+.section-studyplace h1 {
+    margin: var(--u-default) auto;
+}
+
+.section-studyplace form {
+    margin: 0 auto;
+}
+
+/* ======================= FORM ======================= */
+
+.studyplace {
+	width: 10em;
+	display: block;
+}
+
+fieldset {
+	display: flex;
+	flex-direction: column;
+}
+
+form.form-reservate input {
+	margin-bottom: var(--u-default);
+}
+
+form.form-reservate {
+    border: var(--u-nano) solid var(--c-accent-25);
+    width: 100%;
+    display: block;
+    padding: var(--u-medium);
+    box-shadow: 0 var(--u-small) var(--u-small) 0 rgba(0,0,0,0.33);
+}
+
+fieldset {
+	border: var(--u-nano) solid var(--c-accent-50);
+	display: flex;
+	flex-direction: column;
+}
+
+.form-reservate label {
+	margin-bottom: var(--u-small);
+}
+
+.form-reservate input {
+	margin-bottom: var(--u-default);
+}
+
+.form-button-submit {
+    width: fit-content;
+	background-color: var(--c-accent-100);
+	color: var(--c-default);
+	margin: var(--u-default) 0;
+	padding: var(--u-medium) var(--u-default);
+	transition: var(--a-quick) ease-in-out;
+}
+
+.form-button-submit:hover {
+    background-color: red;
+}   
+
+.form-button-submit:focus {
+    background-color: red;
+}   
+
+/* Image */
+
+.reservate-image {
+    border-radius: var(--u-small);
+}
+
+/* EXTRA SMALL SCREEN 560px */
+@media (min-width: 20em) {
+
+    form.form-reservate {
+        width: fit-content;
+    }
+    
+    }
+
+    /* SMALL SCREEN 560px */
+@media (min-width: 35em) {
+
+        /* ========= FORM ========= */
+
+        .studyplace {
+            width: 20em;
+            display: block;
+        }
+}
+
+.form-button-submit:focus {
+	background-color: red;
+}
+
+/* SMALL SCREEN 560px */
+@media (min-width: 35em) {
+	/* ========= FORM ========= */
+    form.form-reservate {
+        width: 25em;
+    }
+
+	.studyplace {
+		width: 20em;
+		display: block;
+	}
+}
+
+@media (min-width: 37.5em) {
+	form.form-reservate {
+		width: 25em;
+	}
+
+	/* ========= FORM ========= */
+
+	.studyplace {
+		width: 25em;
+		display: block;
+	}
+}
+
+/* MEDIUM SCREEN 768px */
+@media (min-width: 48em) {
+
+    main > section:nth-of-type(1) {
+        height: auto;
+    }
+
+    .section-studyplace {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .section-studyplace article {
+        grid-template-columns: 2fr 3fr;
+    }  
+
+    .section-studyplace .item-image {
+        height: 20em;
+    }
+}
+
+@media (min-width: 60em) {
+    .section-studyplace {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
