@@ -1,0 +1,47 @@
+<%- include('./partials/head') %>
+
+<!-- De opmaak van de header  -->
+<%- include('./partials/header') %>
+
+<link rel="stylesheet" href="./style/reservations.css" />
+
+<main>
+    <section class="section-studyplace">
+        <article>
+            <picture>
+                <source srcset="" />
+                <img class="item-image" src="<%= results[0].coverimages[1] %>" alt="" />
+            </picture>
+        </article>
+        <article>
+            <h1>Reserveer dit exemplaar</h1>
+            <form class="form-reservate" action="/reserveren" method="post">
+                <fieldset>
+                    <legend>Persoonlijke gegevens</legend>
+                    <pre>
+				<label for="obaId" hidden>oba ID nummer</label>
+				<input
+                    required
+                    hidden
+                    id="obaId"
+                    type="text"
+                    name="obaId"
+                    value="<%= results[0].id %>"
+				/>
+                </pre>
+                    <label for="userName">Wat is uw voornaam?</label>
+                    <input required id="userName" type="text" name="userName"
+                        value="<%= locals.reservations?.userName ?? '' %>" />
+                    <label for="date">
+                        Wanneer wilt u een boek lenen?</label>
+                    <input required id="date" type="date" name="date" value="<%= locals.reservations?.date ?? '' %>" />
+                    <button class="form-button-submit" type="submit" value="reserveren">
+                        reserveren
+                    </button>
+                </fieldset>
+            </form>
+        </article>
+    </section>
+</main>
+
+<%- include('./partials/foot') %>
