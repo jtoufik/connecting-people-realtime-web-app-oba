@@ -1,4 +1,4 @@
-![Schermafbeelding 2023-05-23 om 11 40 40](https://github.com/Stefan-Espant/connecting-people-realtime-web-app-oba/assets/89298385/865f0296-f3b9-4398-9cf4-d12278475e49)
+![Schermafbeelding 2023-05-23 om 11 42 03](https://github.com/Stefan-Espant/connecting-people-realtime-web-app-oba/assets/89298385/1d27b143-98e1-4a49-bf33-d7a7a25d62c0)
 
 # Oba Realtime ChatArt 
 <!-- Geef je project een titel en schrijf in één zin wat het is -->
