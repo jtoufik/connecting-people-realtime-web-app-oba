@@ -1,4 +1,5 @@
 > _Fork_ deze leertaak en ga aan de slag. Onderstaande outline ga je gedurende deze taak in jouw eigen GitHub omgeving uitwerken. De instructie vind je in: [docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)
+![Schermafbeelding 2023-05-23 om 11 40 40](https://github.com/Stefan-Espant/connecting-people-realtime-web-app-oba/assets/89298385/865f0296-f3b9-4398-9cf4-d12278475e49)
 
 # Oba Realtime ChatArt 
 <!-- Geef je project een titel en schrijf in één zin wat het is -->
