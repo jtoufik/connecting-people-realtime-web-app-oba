@@ -7,8 +7,13 @@ import bodyParser from 'body-parser';
 dotenv.config();
 
 import * as path from 'path'
-import { Server } from 'socket.io'
-import { createServer, request } from 'http'
+import {
+	Server
+} from 'socket.io'
+import {
+	createServer,
+	request
+} from 'http'
 
 // Maakt een nieuwe express app
 const server = express();
@@ -142,13 +147,15 @@ server.post("/reserveren", (request, response) => {
 	const url = `${baseurl}/reserveringen`;
 
 	postJson(url, request.body).then((data) => {
-		let newReservering = { ... request.body }
+		let newReservering = {
+			...request.body
+		}
 		console.log(newReservering);
 		if (data.id) {
-			response.redirect('/succes') 
+			response.redirect('/succes')
 			console.log("werkt!")
-	
-		} else{
+
+		} else {
 			response.redirect('/succes')
 		}
 
@@ -169,7 +176,7 @@ server.get(
 );
 
 server.get("/succes", (request, response) => {
-		response.render("succes");
+	response.render("succes");
 });
 
 // Maakt een route voor de studieplek reserveringspagina om vestiging foto's in te laden
