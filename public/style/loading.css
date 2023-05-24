@@ -10,7 +10,7 @@
 
 
 
-section {
+section .loading {
     width: 20rem;
     height: 30rem;
     background: rgba(255, 255, 255, 0.6);
