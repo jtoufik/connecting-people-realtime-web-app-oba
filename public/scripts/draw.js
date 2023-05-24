@@ -16,6 +16,13 @@ const drawRectangle = (e) => {
   canvasContext.strokeRect(e.offsetX, e.offsetY, previousMouseX - e.offsetX, previousMouseY - e.offsetY);
 }
 
+const drawCircle = (e) => {
+    canvasContext.beginPath();
+    let radius = Math.sqrt(Math.pow((previousMouseX - e.offsetX), 2) + Math.pow((previousMouseY - e.offsetY), 2));
+    canvasContext.arc(previousMouseX, previousMouseY, radius, 0, 2 * Math.PI);
+    canvasContext.stroke();
+}
+
 const startDraw = (e) => {
   isDrawing = true;
   previousMouseX = e.offsetX;
@@ -34,6 +41,8 @@ const drawing = (e) => {
     canvasContext.stroke();
   } else if (selectedTool === 'rectangle') {
     drawRectangle(e);
+  } else if (selectedTool === 'eclipse'){
+    drawCircle(e)
   }
 }
 
@@ -50,6 +59,8 @@ canvasToolButtons.forEach(button => {
     console.log(selectedTool);
   });
 });
+
+
 
 canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", drawing);

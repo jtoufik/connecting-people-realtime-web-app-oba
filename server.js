@@ -9,6 +9,7 @@ dotenv.config();
 import * as path from 'path'
 import { Server } from 'socket.io'
 import { createServer, request } from 'http'
+import fetch from "node-fetch";
 
 // Maakt een nieuwe express app
 const server = express();
@@ -28,7 +29,6 @@ server.get("/", (request, response) => {
 		response.render("index", data);
 	});
 });
-
 
 // Handelt de formulieren af
 server.use(bodyParser.urlencoded({
@@ -297,20 +297,20 @@ io.on('connection', (socket) => {
  * @param {*} url the api endpoint to address
  * @returns the json response from the api endpoint
  */
-export async function fetchJson(url, payload = {}) {
-	return await fetch(url, payload)
-		.then((response) => response.json())
-		.catch((error) => error);
-}
-
-export async function postJson(url, body) {
-	return await fetch(url, {
-			method: "post",
-			body: JSON.stringify(body),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-		.then((response) => response.json())
-		.catch((error) => error);
-}
+ export async function fetchJson(url, payload = {}) {
+    return await fetch(url, payload)
+      .then((response) => response.json())
+      .catch((error) => error);
+  }
+  
+  export async function postJson(url, body) {
+    return await fetch(url, {
+      method: "post",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .catch((error) => error);
+  }

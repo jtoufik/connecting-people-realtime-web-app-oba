@@ -21,6 +21,7 @@
     border-radius: var(--u-small);
     background-color: var(--c-default);
     display: flex;
+    align-items: center;
     justify-content: center;
     gap: var(--u-medium);
     padding: var(--u-default);
@@ -50,5 +51,27 @@
 .draw svg {
     width: 3em;
     height: 3em;
+    fill: var(--c-accent-150);
 }
 
+.draw input[type="color"]{
+    width: 3em;
+    height: 3em;
+    display: block;
+    background: none;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Color menu */
+
+.draw summary {
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.draw option {
+
+}
