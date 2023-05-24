@@ -1,6 +1,7 @@
-// const carousel = document.querySelector(".carousel");
-// firstImg = carousel.querySelectorAll(".book")[0];
-// const arrowIcons = document.querySelectorAll(".wrapper .arrow");
+
+const carousel = document.querySelector(".carousel");
+firstImg = carousel.querySelectorAll(".book")[0];
+const arrowIcons = document.querySelectorAll(".wrapper .arrow");
 
 // let isDragStart, prevPageX, prevScrollLeft = false;
 // let firstImgWidth = firstImg.clientWidth + 14;
@@ -31,6 +32,20 @@
 //         carousel.classList.remove("dragging");
 //     }
 
-// carousel.addEventListener("mousedown", dragStart);
-// carousel.addEventListener("mousemove", dragging);
-// carousel.addEventListener("mouseup", dragStop);
+carousel.addEventListener("mousedown", dragStart);
+carousel.addEventListener("mousemove", dragging);
+carousel.addEventListener("mouseup", dragStop);
+
+// ChatArt room
+
+const openButton = document.querySelector("[data-open-modal]")
+const closeButton = document.querySelector("[data-close-modal]")
+const modal = document.querySelector("[data-modal]")
+
+openButton.addEventListener("click"), () =>{
+    modal.showModal()
+}
+
+closeButton.addEventListener("click"), () =>{
+    modal.close()
+}
