@@ -1,0 +1,77 @@
+.draw {
+    width: 100%;
+    height: 100vh;
+    padding: var(--u-default);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.draw canvas {
+    width: inherit;
+    height: 100%;
+    border: var(--u-pico) solid var(--c-accent-75);
+    border-radius: var(--u-small);
+}
+
+.draw nav {
+    width: auto;
+    border: var(--u-pico) solid var(--c-accent-75);
+    border-radius: var(--u-small);
+    background-color: var(--c-default);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--u-medium);
+    padding: var(--u-default);
+    position: sticky;
+    bottom: var(--u-default);
+}
+
+.draw button {
+    border: var(--u-nano) solid var(--c-default);
+    border-radius: var(--u-small);
+    transition: var(--a-default) ease-in-out;
+    padding: var(--u-small); 
+}
+
+.draw button:hover {
+    background-color: var(--c-accent-50);
+}
+
+.draw button:is(:focus, .active) {
+    background-color: var(--c-accent-150);
+}
+
+.draw button.active svg {
+    fill: var(--c-default);
+}
+
+.draw svg {
+    width: 3em;
+    height: 3em;
+    fill: var(--c-accent-150);
+}
+
+.draw input[type="color"]{
+    width: 3em;
+    height: 3em;
+    display: block;
+    background: none;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Color menu */
+
+.draw summary {
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.draw option {
+
+}

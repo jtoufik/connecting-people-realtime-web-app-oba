@@ -9,6 +9,7 @@ dotenv.config();
 import * as path from 'path'
 import { Server } from 'socket.io'
 import { createServer, request } from 'http'
+import fetch from "node-fetch";
 
 // Maakt een nieuwe express app
 const server = express();
@@ -19,7 +20,7 @@ const io = new Server(http)
 const port = process.env.PORT || 9000
 
 // Serveer client-side bestanden
-server.use(express.static(path.resolve('public')))
+server.use(express.static("public"));
 server.set("views", "./views")
 
 // Maakt een route voor de index
@@ -28,7 +29,6 @@ server.get("/", (request, response) => {
 		response.render("index", data);
 	});
 });
-
 
 // Handelt de formulieren af
 server.use(bodyParser.urlencoded({
@@ -267,6 +267,29 @@ server.get(
 	}
 );
 
+server.get("/draw", (request, response) => {
+    fetchJson(defaultUrl).then((data) => {
+		response.render("draw", data);
+	});
+});
+
+// Regelt het realtime tekenen
+
+// Socket.IO verbinding
+io.on('connection', (socket) => {
+  console.log('Een gebruiker heeft verbinding gemaakt');
+
+  // Luister naar tekengebeurtenis
+  socket.on('teken', (data) => {
+    // Stuur het tekengegevens naar alle verbonden clients
+    io.emit('teken', data);
+  });
+
+  // Afhandelen van ontkoppeling
+  socket.on('disconnect', () => {
+    console.log('Een gebruiker heeft de verbinding verbroken');
+  });
+});
 
 /**
  * fetchJson() is a wrapper for the experimental node fetch api. It fetches the url
@@ -274,20 +297,20 @@ server.get(
  * @param {*} url the api endpoint to address
  * @returns the json response from the api endpoint
  */
-export async function fetchJson(url, payload = {}) {
-	return await fetch(url, payload)
-		.then((response) => response.json())
-		.catch((error) => error);
-}
-
-export async function postJson(url, body) {
-	return await fetch(url, {
-			method: "post",
-			body: JSON.stringify(body),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-		.then((response) => response.json())
-		.catch((error) => error);
-}
+ export async function fetchJson(url, payload = {}) {
+    return await fetch(url, payload)
+      .then((response) => response.json())
+      .catch((error) => error);
+  }
+  
+  export async function postJson(url, body) {
+    return await fetch(url, {
+      method: "post",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .catch((error) => error);
+  }
