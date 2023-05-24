@@ -1,52 +1,47 @@
-// Importeert basis modules uit npm
+// Importeer de vereiste modules
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from 'body-parser';
-
-// Activeert het .env bestand
-dotenv.config();
-
-import * as path from 'path'
-import { Server } from 'socket.io'
-import { createServer, request } from 'http'
+import * as path from 'path';
+import { Server } from 'socket.io';
+import { createServer } from 'http';
 import fetch from "node-fetch";
 
-// Maakt een nieuwe express app
-const server = express();
-const http = createServer(server)
-const io = new Server(http)
+// Activeer het .env-bestand
+dotenv.config();
 
-// Stelt het poortnummer in waar express op gaat luisteren
-const port = process.env.PORT || 9000
+// Maak een Express-app en een HTTP-server
+const app = express();
+const server = createServer(app);
+
+// Koppel Socket.io aan de HTTP-server
+const io = new Server(server);
 
 // Serveer client-side bestanden
-server.use(express.static("public"));
-server.set("views", "./views")
+app.use(express.static("public"));
+app.set("views", "./views");
 
 // Maakt een route voor de index
-server.get("/", (request, response) => {
-	fetchJson(defaultUrl).then((data) => {
-		response.render("index", data);
-	});
+app.get("/", (request, response) => {
+    const defaultUrl = "https://zoeken.oba.nl/api/v1/search/?q=special:all%20boeken&refine=true&output=json";
+    fetchJson(defaultUrl)
+        .then((data) => {
+            response.render("index", data);
+        })
+        .catch((error) => {
+            response.render("error", { error: "Fout bij het ophalen van gegevens" });
+        });
 });
 
 // Handelt de formulieren af
-server.use(bodyParser.urlencoded({
-	extended: true
+app.use(bodyParser.urlencoded({
+    extended: true
 }));
-server.use(bodyParser.json());
+app.use(bodyParser.json());
 
-// Stel in hoe express gebruikt kan worden
-server.set("view engine", "ejs");
-server.set("views", "./views");
-
-// Start express op, haal het ingestelde poortnummer op
-server.listen(9000, function () {
-	// Toon een bericht in de console en geef het poortnummer door
-	console.log(
-		`Application started on http://localhost:9000`
-	);
-});
+// Stel in hoe Express kan worden gebruikt
+app.set("view engine", "ejs");
+app.set("views", "./views");
 
 // Extenties voor de URL
 const space = "%20";
@@ -85,14 +80,14 @@ const defaultUrl =
 	urlOutput;
 
 // Maakt een route voor de index
-server.get("/", (request, response) => {
+app.get("/", (request, response) => {
 	fetchJson(defaultUrl).then((data) => {
 		response.render("index", data);
 	});
 });
 
 // Maakt een route voor de detailpagina
-server.get("/item", async (request, response) => {
+app.get("/item", async (request, response) => {
 	let uniqueQuery = "?id=";
 	let urlId = request.query.id || "";
 
@@ -111,7 +106,7 @@ server.get("/item", async (request, response) => {
 });
 
 // Maakt een route voor de reguliere reserveringspagina
-server.get("/reserveren", async (request, response) => {
+app.get("/reserveren", async (request, response) => {
 	const baseurl = "https://api.oba.fdnd.nl/api/v1";
 	const url = `${baseurl}/reserveringen`;
 
@@ -137,7 +132,7 @@ server.get("/reserveren", async (request, response) => {
 });
 
 // Verstuurt de data naar de API
-server.post("/reserveren", (request, response) => {
+app.post("/reserveren", (request, response) => {
 	const baseurl = "https://api.oba.fdnd.nl/api/v1";
 	const url = `${baseurl}/reserveringen`;
 
@@ -156,7 +151,7 @@ server.post("/reserveren", (request, response) => {
 });
 
 // Maakt een route voor de studieplek reserveringspagina
-server.get(
+app.get(
 	"/reserveer-een-studieplek",
 	(request, response) => {
 		const baseurl = "https://api.oba.fdnd.nl/api/v1";
@@ -168,12 +163,12 @@ server.get(
 	}
 );
 
-server.get("/succes", (request, response) => {
+app.get("/succes", (request, response) => {
 		response.render("succes");
 });
 
 // Maakt een route voor de studieplek reserveringspagina om vestiging foto's in te laden
-server.get(
+app.get(
 	"/reserveer-een-studieplek",
 	(request, response) => {
 		const baseurl = "https://api.oba.fdnd.nl/api/v1";
@@ -186,7 +181,7 @@ server.get(
 );
 
 // Verstuurt de data van de studieplek naar de API
-server.post(
+app.post(
 	"/reserveer-een-studieplek",
 	(request, response) => {
 		const baseurl = "https://api.oba.fdnd.nl/api/v1";
@@ -220,7 +215,7 @@ server.post(
 );
 
 //Maakt een route voor de activiteiten pagina
-server.get("/activiteiten", (request, response) => {
+app.get("/activiteiten", (request, response) => {
 	fetchJson(activityURL).then((data) => {
 		let dataClone = structuredClone(data);
 
@@ -238,7 +233,7 @@ server.get("/activiteiten", (request, response) => {
 });
 
 // Maakt route voor de cursussen pagina
-server.get("/cursussen", (request, response) => {
+app.get("/cursussen", (request, response) => {
 	fetchJson(courseURL).then((data) => {
 		let dataClone = structuredClone(data);
 
@@ -255,7 +250,7 @@ server.get("/cursussen", (request, response) => {
 });
 
 //Maakt route voor de Vestigingen pagina
-server.get(
+app.get(
 	"/vestigingen",
 	(request, response) => {
 		const baseurl = "https://api.oba.fdnd.nl/api/v1";
@@ -267,50 +262,62 @@ server.get(
 	}
 );
 
-server.get("/draw", (request, response) => {
+app.get("/draw", (request, response) => {
     fetchJson(defaultUrl).then((data) => {
 		response.render("draw", data);
 	});
 });
 
-// Regelt het realtime tekenen
+// Start de server en luister naar inkomende verzoeken
+const port = process.env.PORT || 9000;
+server.listen(port, () => {
+  console.log(`Server is gestart op http://localhost:${port}`);
+});
 
-// Socket.IO verbinding
-io.on('connection', (socket) => {
-  console.log('Een gebruiker heeft verbinding gemaakt');
+// Realtime tekenen met Socket.io
+io.on("connection", (socket) => {
+  console.log("Een nieuwe gebruiker is verbonden");
 
-  // Luister naar tekengebeurtenis
-  socket.on('teken', (data) => {
-    // Stuur het tekengegevens naar alle verbonden clients
-    io.emit('teken', data);
+  socket.on("drawing", (data) => {
+    // Stuur de tekening naar alle verbonden clients, behalve de afzender
+    socket.broadcast.emit("drawing", data);
   });
 
-  // Afhandelen van ontkoppeling
-  socket.on('disconnect', () => {
-    console.log('Een gebruiker heeft de verbinding verbroken');
+  socket.on("disconnect", () => {
+    console.log("Een gebruiker is losgekoppeld");
   });
 });
 
-/**
- * fetchJson() is a wrapper for the experimental node fetch api. It fetches the url
- * passed as a parameter and returns the response body parsed through json.
- * @param {*} url the api endpoint to address
- * @returns the json response from the api endpoint
- */
- export async function fetchJson(url, payload = {}) {
-    return await fetch(url, payload)
-      .then((response) => response.json())
-      .catch((error) => error);
-  }
+// Realtime tekenen met Socket.io
+io.on("connection", (socket) => {
+    console.log("Een nieuwe gebruiker is verbonden");
   
-  export async function postJson(url, body) {
-    return await fetch(url, {
-      method: "post",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .catch((error) => error);
-  }
+    socket.on("drawing", (data) => {
+      // Stuur de tekening naar alle verbonden clients, behalve de afzender
+      socket.broadcast.emit("drawing", data);
+    });
+  
+    socket.on("disconnect", () => {
+      console.log("Een gebruiker is losgekoppeld");
+    });
+  });
+
+// Hulpmethode voor het maken van een GET-verzoek en het parsen van het antwoord als JSON
+async function fetchJson(url) {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
+// Hulpmethode voor het maken van een POST-verzoek met JSON-gegevens
+async function postJson(url, data) {
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+    const responseData = await response.json();
+    return responseData;
+}
