@@ -33,7 +33,10 @@
 
 ## Bronnen
 [docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)
+
 https://www.youtube.com/watch?v=y84tBZo8GFo 
+
+https://codingnepalweb.com/demos/drawing-app-javascript/
 
 ## Licentie
 
