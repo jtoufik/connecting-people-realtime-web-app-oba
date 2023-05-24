@@ -12,6 +12,7 @@
     --a-large: 1s;
 
     /* eenheden */
+    --u-pico: 0.0625em;
     --u-nano: 0.125em;
     --u-micro: 0.25em;
     --u-small: 0.4em;
