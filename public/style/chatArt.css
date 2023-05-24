@@ -1,0 +1,16 @@
+/* =========== Chat Art room modal =========== */
+
+.container-chatArt{
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: 64px;
+    height: 64px;
+    z-index: 9999;
+}
+
+.btn-chatArt{
+    padding: 2em;
+    background-color: aquamarine;
+}
+
