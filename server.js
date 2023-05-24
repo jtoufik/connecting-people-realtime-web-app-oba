@@ -96,6 +96,19 @@ server.get("/", (request, response) => {
 	});
 });
 
+
+// Maakt route voor loading
+
+server.get("/loading", (request, response) => {
+	fetchJson(defaultUrl).then((data) => {
+		response.render("loading", data);
+	});
+});
+
+
+
+
+
 // Maakt een route voor de detailpagina
 server.get("/item", async (request, response) => {
 	let uniqueQuery = "?id=";
