@@ -1,15 +1,12 @@
-p {
+.blank-initial-box p {
     /* background-color: rgb(226, 226, 226); */
     color: rgb(206, 206, 206);
     font-weight: bold;
     gap: 1rem;
     padding-left: 1.5em;
-
-
-
 }
 
-article {
+.blank-initial-box {
 
     justify-content: center;
     /* padding-top: 15rem; */
@@ -50,7 +47,7 @@ article {
 
 }
 
-input[type="text"] {
+.text input[type="text"] {
     border: none;
     padding: 5px;
 }
