@@ -28,20 +28,16 @@ article {
     margin-left: 5em;
     margin-top: 4em;
 
-
-
-
-
 }
 
 
-.text-box {
+.text-box-blank {
     display: flex;
     justify-content: center;
     align-items: center;
     /* height: 100vh; */
     width: 100%;
-    /* padding-top: 15rem; */
+    padding-top: 20rem;
 
 }
 
