@@ -26,3 +26,8 @@ draw.addEventListener('toggle', function(event) {
         chat.open = false;
     }
 });
+
+function toggleDetails() {
+    let detailsElement = document.getElementById("chat");
+    detailsElement.open = !detailsElement.open;
+}
