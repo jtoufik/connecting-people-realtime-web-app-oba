@@ -1,0 +1,69 @@
+<%- include('./partials/head.ejs') %>
+<%- include('./partials/header.ejs') %>
+
+<section>
+  <h2> Activiteiten</h2>
+
+  <div class="wrapper">
+      <i class=" arrow-carousel material-symbols-outlined">
+          chevron_left
+      </i>
+
+      <ul class="carousel">
+          <% results.forEach(result => { %>
+          <li class="book">
+              <a href="/item?id=<%= result.id %>" class="book-a">
+                  <picture class="book-picture">
+                      <img src="<%= result.coverimages %> " alt="<%= result.titles[0] %>">
+                  </picture>
+              </a>
+          </li>
+          <% }); %>
+      </ul>
+      
+      <i class=" arrow-carousel material-symbols-outlined">
+          chevron_right
+      </i>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+<section>
+<article>
+   <h2>Cinema Literair</h2>
+   
+    <picture>
+        <source srcset="/assets/cinema-literiair-activiteit-foto.webp" type="image/webp"/>
+        <img src="/assets/cinema-literiair-logo.png.rendition.792.1267.png" alt="cinema activiteit" width="500px" height="400px" class="right">
+    </picture>
+
+<p>
+    Het literaire filmtheater van de OBA: iedere maand leggen we de rode loper uit voor literatuur- en filmfanaten.
+</p>
+<a href="https://www.oba.nl/cinemaliterair.html">Ga naar de pagina van Cinema Literair</a>
+
+
+<h2>OBA helpt</h2>
+    <picture>
+        <source srcset="/assets/foto-activiteit.rendition.792.1267.webp" type="image/webp"/>
+        <img src="/assets/0818_leef-en-leerboudewijnbollmannobataalcafe.jpg.rendition.jpeg" alt="activiteit"width="500px" height="400px" class="left">
+    </picture>
+    <p>
+        Wil je leren hoe je Netflix gebruikt? Heb je vragen over het leren van de Nederlandse taal? Of heb je advies nodig over jouw geldzaken? We helpen je graag. 
+    </p>
+
+    <a href="https://www.oba.nl/cinemaliterair.html"> Ga naar de pagina van Cinema Literair</a>
+
+
+    
+</article>
+</section>
+
+
+<%- include('./partials/foot.ejs') %>

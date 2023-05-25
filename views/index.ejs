@@ -1,0 +1,101 @@
+<%- include('./partials/head') %>
+
+<!-- De opmaak van de header  -->
+<%- include('./partials/header') %>
+
+<main>
+    <section>
+        <h1> Lekker lezen</h1>
+        <p>
+            Maak kennis met verhalen in vele vormen. In jouw OBA vind je boeken om mee weg te kruipen, een theatervoorstelling waar je stil van wordt en voorleesuurtjes waar je niet over uitgepraat raakt. 
+        </p>
+    </section>
+
+    <section>
+        <h2> Onze nieuwe aanwinsten</h2>
+
+        <div class="wrapper">
+            <a id="left" class=" arrow arrow-left">
+                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="50" height="50" transform="rotate(180)" viewBox="0 0 512 512">
+                    <path d="M146.662 26.814 358.221 238.27c10.755 10.222 10.755 26.193 0 36.414L146.662 486.139" style="fill:none;stroke:#000;stroke-width:13.4167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.6131"/>
+                </svg>
+            </a>
+            <ul class="carousel">
+                <% results.forEach(result => { %>
+                <li class="book">
+                    <a href="/item?id=<%= result.id %>" class="book-a">
+                        <picture class="book-picture">
+                            <img src="<%= result.coverimages %> "  width="300" height="200" loading="lazy" alt="<%= result.titles[0] %>">
+                        </picture>
+                    </a>
+                </li>
+                <% }); %>
+            </ul>
+            <a id="right" class=" arrow arrow-right">
+                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="50" height="50" viewBox="0 0 512 512">
+                    <path d="M146.662 26.814 358.221 238.27c10.755 10.222 10.755 26.193 0 36.414L146.662 486.139" style="fill:none;stroke:#000;stroke-width:13.4167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.6131"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <article>
+            <h2> E-books en luisterboeken </h2>
+            <a href="https://www.oba.nl/collectie/ebooks_en_luisterboeken.html">
+                <picture>
+                    <source srcset="/assets/index-images/oba-content-img1.avif" type="image/avif"/>
+                    <source srcset="/assets/index-images/oba-content-img1.webp" type="image/webp"/>
+                    <img src="/assets/index-images/oba-content-img1.jpg" alt="e-books en luisterboeken" loading="lazy">
+                </picture>
+            </a>
+            <p> 
+                Als lid van de OBA heb je toegang tot duizenden e-books en luisterboeken uit de landelijke Bibliotheek. 
+                In een paar stappen lees je ze op je smartphone, tablet of e-reader.
+            </p>
+        </article>
+        <article>
+            <h2> Digitale bronnen </h2>
+            <a href="https://www.oba.nl/collectie/digitale-bronnen.html">
+                <picture>
+                    <source srcset="/assets/index-images/oba-content-img2.avif" type="image/avif"/>
+                    <source srcset="/assets/index-images/oba-content-img2.webp" type="image/webp"/>
+                    <img src="/assets/index-images/oba-content-img2.jpg" alt="Passend lezen" loading="lazy">
+                </picture>
+            </a>
+            <p> 
+                In de OBA maak je gratis gebruik van uiteenlopende digitale bronnen. Ook als je geen lid bent. Ben je wel lid? Dan kan je vaak thuis ook de digitale bronnen raadplegen.
+            </p>
+        </article>
+        <article>
+            <h2> Leesclub </h2>
+            <a href="https://www.oba.nl/collectie/leesclubs.html">
+                <picture>
+                    <source srcset="/assets/index-images/oba-content-img3.avif" type="image/avif"/>
+                    <source srcset="/assets/index-images/oba-content-img3.webp" type="image/webp"/>
+                    <img src="/assets/index-images/oba-content-img3.jpg" alt="Leesclub" loading="lazy">
+                </picture>
+            </a>
+            <p> 
+                Ben je op zoek naar een leesclub bij jou in de buurt? De OBA brengt je graag in contact met andere boekliefhebbers. 
+                Ook voor bestaande leesclubs heeft de OBA aanbod.
+            </p>
+        </article>
+    </section>
+
+    <section>
+        <picture>
+                <source
+                        srcset="/assets/index-images/oba-footer-img-large.avif 1280w,
+                                /assets/index-images/oba-footer-img-medium.avif 740w,
+                                /assets/index-images/oba-footer-img.small.avif 320w"
+                        type="image/avif"/>
+            <!-- <source srcset="/assets/index-images/oba-footer-img.webp" type="image/webp"/> -->
+            <img src="/assets/index-images/oba-footer-img.jpg" alt="Tips van Oba" loading="lazy" />
+        </picture>
+    </section>
+
+</main>
+
+<!-- De opmaak van de footer  -->
+<%- include('./partials/foot') %>

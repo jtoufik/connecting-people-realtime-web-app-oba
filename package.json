@@ -1,8 +1,9 @@
 {
   "name": "connecting-people-realtime-web-app-oba",
-  "version": "1.0.0",
-  "description": "> _Fork_ deze leertaak en ga aan de slag. Onderstaande outline ga je gedurende deze taak in jouw eigen GitHub omgeving uitwerken. De instructie vind je in: [docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)",
+  "version": "0.0.1",
+  "description": "Hier is onze ontwerp van de Realtime chat/art room die we voor de opdrachtgever Oba realiseren resources",
   "main": "server.js",
+  "type": "module",
   "directories": {
     "doc": "docs"
   },
@@ -11,11 +12,29 @@
     "start": "node server.js"
   },
   "author": "Stefan van der Kort",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "helpers": "^0.0.6",
+    "node": "^20.2.0",
+    "node-fetch": "^3.3.1",
     "socket-io-anti-spam": "^2.5.0",
     "socket.io": "^4.6.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtoufik/connecting-people-realtime-web-app-oba.git"
+  },
+  "keywords": [
+    "node",
+    "ejs",
+    "express",
+    "socket.io"
+  ],
+  "bugs": {
+    "url": "https://github.com/jtoufik/connecting-people-realtime-web-app-oba/issues"
+  },
+  "homepage": "https://github.com/jtoufik/connecting-people-realtime-web-app-oba#readme"
 }
