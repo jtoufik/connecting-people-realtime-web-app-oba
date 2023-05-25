@@ -1,0 +1,70 @@
+p {
+    /* background-color: rgb(226, 226, 226); */
+    color: rgb(206, 206, 206);
+    font-weight: bold;
+    gap: 1rem;
+    padding-left: 1.5em;
+
+
+
+}
+
+article {
+
+    justify-content: center;
+    /* padding-top: 15rem; */
+
+    width: 20rem;
+    height: 10rem;
+
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(1rem);
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0.8rem 0.8rem 1.6rem 0 rgba(206, 205, 205, 0.5), -0.8rem -0.8rem 1.6rem 0 rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5em;
+    margin-top: 4em;
+
+}
+
+
+.text-box-blank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    width: 100%;
+    padding-top: 20rem;
+
+}
+
+
+.text {
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+
+}
+
+input[type="text"] {
+    border: none;
+    padding: 5px;
+}
+
+.submit {
+    background-color: rgb(0, 0, 0);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+
+}
+
+.submit svg {
+    width: 2em;
+    height: 2em;
+    fill: white;
+}
