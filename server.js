@@ -106,9 +106,13 @@ server.get("/loading", (request, response) => {
 });
 
 
+// Maakt route voor Blank-initial-state
 
-
-
+server.get("/blank-initial-state", (request, response) => {
+	fetchJson(defaultUrl).then((data) => {
+		response.render("blank-initial-state", data);
+	});
+});
 // Maakt een route voor de detailpagina
 server.get("/item", async (request, response) => {
 	let uniqueQuery = "?id=";
