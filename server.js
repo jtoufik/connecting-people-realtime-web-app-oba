@@ -7,8 +7,13 @@ import bodyParser from 'body-parser';
 dotenv.config();
 
 import * as path from 'path'
-import { Server } from 'socket.io'
-import { createServer, request } from 'http'
+import {
+	Server
+} from 'socket.io'
+import {
+	createServer,
+	request
+} from 'http'
 import fetch from "node-fetch";
 
 // Maakt een nieuwe express app
@@ -91,6 +96,19 @@ server.get("/", (request, response) => {
 	});
 });
 
+
+// Maakt route voor loading
+
+server.get("/loading", (request, response) => {
+	fetchJson(defaultUrl).then((data) => {
+		response.render("loading", data);
+	});
+});
+
+
+
+
+
 // Maakt een route voor de detailpagina
 server.get("/item", async (request, response) => {
 	let uniqueQuery = "?id=";
@@ -142,13 +160,15 @@ server.post("/reserveren", (request, response) => {
 	const url = `${baseurl}/reserveringen`;
 
 	postJson(url, request.body).then((data) => {
-		let newReservering = { ... request.body }
+		let newReservering = {
+			...request.body
+		}
 		console.log(newReservering);
 		if (data.id) {
-			response.redirect('/succes') 
+			response.redirect('/succes')
 			console.log("werkt!")
-	
-		} else{
+
+		} else {
 			response.redirect('/succes')
 		}
 
@@ -169,7 +189,7 @@ server.get(
 );
 
 server.get("/succes", (request, response) => {
-		response.render("succes");
+	response.render("succes");
 });
 
 // Maakt een route voor de studieplek reserveringspagina om vestiging foto's in te laden
@@ -268,7 +288,7 @@ server.get(
 );
 
 server.get("/draw", (request, response) => {
-    fetchJson(defaultUrl).then((data) => {
+	fetchJson(defaultUrl).then((data) => {
 		response.render("draw", data);
 	});
 });
@@ -277,18 +297,18 @@ server.get("/draw", (request, response) => {
 
 // Socket.IO verbinding
 io.on('connection', (socket) => {
-  console.log('Een gebruiker heeft verbinding gemaakt');
+	console.log('Een gebruiker heeft verbinding gemaakt');
 
-  // Luister naar tekengebeurtenis
-  socket.on('teken', (data) => {
-    // Stuur het tekengegevens naar alle verbonden clients
-    io.emit('teken', data);
-  });
+	// Luister naar tekengebeurtenis
+	socket.on('teken', (data) => {
+		// Stuur het tekengegevens naar alle verbonden clients
+		io.emit('teken', data);
+	});
 
-  // Afhandelen van ontkoppeling
-  socket.on('disconnect', () => {
-    console.log('Een gebruiker heeft de verbinding verbroken');
-  });
+	// Afhandelen van ontkoppeling
+	socket.on('disconnect', () => {
+		console.log('Een gebruiker heeft de verbinding verbroken');
+	});
 });
 
 /**
@@ -297,20 +317,20 @@ io.on('connection', (socket) => {
  * @param {*} url the api endpoint to address
  * @returns the json response from the api endpoint
  */
- export async function fetchJson(url, payload = {}) {
-    return await fetch(url, payload)
-      .then((response) => response.json())
-      .catch((error) => error);
-  }
-  
-  export async function postJson(url, body) {
-    return await fetch(url, {
-      method: "post",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .catch((error) => error);
-  }
+export async function fetchJson(url, payload = {}) {
+	return await fetch(url, payload)
+		.then((response) => response.json())
+		.catch((error) => error);
+}
+
+export async function postJson(url, body) {
+	return await fetch(url, {
+			method: "post",
+			body: JSON.stringify(body),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+		.then((response) => response.json())
+		.catch((error) => error);
+}
