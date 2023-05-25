@@ -3,9 +3,28 @@
     height: 100vh;
     padding: var(--u-default);
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 18fr 1fr;
     flex-direction: column;
-    gap: 1em;
+    grid-gap: 1.5em;
+}
+
+.draw header {
+    width: 100%;
+    height: fit-content;
+    box-shadow: none;
+    padding: 0;
+}
+
+.draw header span {
+    display: flex;
+    align-items: center;
+    gap: var(--u-medium);
+}
+
+.draw main {
+    width: 100%;
 }
 
 .draw canvas {
@@ -13,14 +32,22 @@
     height: 100%;
     border: var(--u-pico) solid var(--c-accent-75);
     border-radius: var(--u-small);
+    display: grid;
+}
+
+.draw footer {
+    background: none;
+    padding: 0;
 }
 
 .draw nav {
     width: auto;
+    height: fit-content;
     border: var(--u-pico) solid var(--c-accent-75);
     border-radius: var(--u-small);
     background-color: var(--c-default);
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     align-items: center;
     justify-content: center;
     gap: var(--u-medium);
@@ -64,14 +91,24 @@
     cursor: pointer;
 }
 
+.draw-header section {
+    width: 100%;
+    border: var(--u-pico) solid var(--c-accent-75);
+    border-radius: var(--u-small);
+    display: flex;
+    justify-content: space-between;
+    padding: var(--u-default);
+}
+
+.draw-header section svg {
+    width: 2em;
+    height: 2em;
+}
+
 /* Color menu */
 
 .draw summary {
     border: 0;
     background: none;
     cursor: pointer;
-}
-
-.draw option {
-
 }
