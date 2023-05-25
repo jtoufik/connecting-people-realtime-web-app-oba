@@ -69,9 +69,10 @@
 
 .draw button:is(:focus, .active) {
     background-color: var(--c-accent-150);
+    border: 0;
 }
 
-.draw button.active svg {
+.draw button:is(:focus, .active) svg {
     fill: var(--c-default);
 }
 
