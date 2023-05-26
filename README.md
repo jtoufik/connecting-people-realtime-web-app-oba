@@ -86,7 +86,7 @@ Voor dit project is gebruik gemaakt van diverse technieken als:
 Houd er rekening mee dat je mogelijk de vereiste afhankelijkheden moet installeren door npm install uit te voeren in de terminal, zoals eerder vermeld.
 
 
-## Bronnen
+## 📚Bronnen
 [docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)
 
 https://www.youtube.com/watch?v=y84tBZo8GFo 
@@ -94,6 +94,6 @@ https://www.youtube.com/watch?v=y84tBZo8GFo
 https://codingnepalweb.com/demos/drawing-app-javascript/
 
 
-## Licentie
+## 👾Licentie
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
