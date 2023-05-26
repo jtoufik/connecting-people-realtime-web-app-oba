@@ -12,14 +12,22 @@ carousel.addEventListener("mouseup", dragStop);
 
 // ChatArt room
 
-const openButton = document.querySelector("[data-open-modal]")
-const closeButton = document.querySelector("[data-close-modal]")
-const modal = document.querySelector("[data-modal]")
+let chat = document.getElementById('chat');
+let draw = document.getElementById('draw');
 
-openButton.addEventListener("click", () =>{
-    modal.showModal() 
-})
+chat.addEventListener('toggle', function(event) {
+    if (chat.open) {
+        draw.open = false;
+    }
+});
 
-closeButton.addEventListener("click", () =>{
-    modal.close()
-})
+draw.addEventListener('toggle', function(event) {
+    if (draw.open) {
+        chat.open = false;
+    }
+});
+
+function toggleDetails() {
+    let detailsElement = document.getElementById("chat");
+    detailsElement.open = !detailsElement.open;
+}
