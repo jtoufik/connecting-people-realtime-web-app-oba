@@ -12,20 +12,24 @@ const io = new Server(http);
 // Voeg de onderstaande code toe voordat de server wordt gestart
 
 io.on("connection", (socket) => {
-  console.log("Een nieuwe gebruiker is verbonden");
-
-  socket.on("drawing", (data) => {
-    socket.broadcast.emit("drawing", data);
+	console.log("Een nieuwe gebruiker is verbonden");
+  
+	socket.on("drawing", (data) => {
+	  socket.broadcast.emit("drawing", data);
+	});
+  
+	socket.on("drawRectangle", (data) => {
+	  socket.broadcast.emit("drawRectangle", data);
+	});
+  
+	socket.on("drawCircle", (data) => {
+	  socket.broadcast.emit("drawCircle", data);
+	});
+  
+	socket.on("disconnect", () => {
+	  console.log("Een gebruiker is losgekoppeld");
+	});
   });
-
-  socket.on( 'draw', (data) => {
-    app.draw(data.x,data.y,data.type)
-});
-
-  socket.on("disconnect", () => {
-    console.log("Een gebruiker is losgekoppeld");
-  });
-});
 
 const port = process.env.PORT || 9000;
 http.listen(port, () => {

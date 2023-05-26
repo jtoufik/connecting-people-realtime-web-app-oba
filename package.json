@@ -22,6 +22,7 @@
     "node": "^20.2.0",
     "node-fetch": "^3.3.1",
     "npm": "^9.6.7",
+    "npm-cache": "^0.7.0",
     "socket-io-anti-spam": "^2.5.0",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
