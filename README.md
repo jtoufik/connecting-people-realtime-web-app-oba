@@ -1,4 +1,4 @@
-> _Fork_ deze leertaak en ga aan de slag. Onderstaande outline ga je gedurende deze taak in jouw eigen GitHub omgeving uitwerken. De instructie vind je in: [docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)
+![Schermafbeelding 2023-05-23 om 11 42 03](https://github.com/Stefan-Espant/connecting-people-realtime-web-app-oba/assets/89298385/1d27b143-98e1-4a49-bf33-d7a7a25d62c0)
 
 
 
@@ -59,6 +59,21 @@ Daarnaast wilden we ook een Art room implementeren waar gebruikers samen konden 
 🔋 Node.js
 ⚙️ Socket.io
 
+## Gebruik
+<!-- Bij Gebruik staat de user story, hoe het werkt en wat je er mee kan. -->
+
+Gebruikers van de oba kunnen met deze webapp tekstueel en visueel communiceren. De  
+
+## Kenmerken
+<!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framwork of library gebruikt? -->
+
+Voor dit project is gebruik gemaakt van diverse technieken als:
+* NodeJS
+* Express
+* Socket.io
+* EJS
+* CSS
+* Javascript
 
 
 ## ⚙️Installatie
@@ -70,7 +85,14 @@ Daarnaast wilden we ook een Art room implementeren waar gebruikers samen konden 
 * Nadat de repository is gekloond, kun je de code openen in de code-editor en de gewenste wijzigingen aanbrengen.
 Houd er rekening mee dat je mogelijk de vereiste afhankelijkheden moet installeren door npm install uit te voeren in de terminal, zoals eerder vermeld.
 
-## 📚Bronnen
+
+## Bronnen
+[docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)
+
+https://www.youtube.com/watch?v=y84tBZo8GFo 
+
+https://codingnepalweb.com/demos/drawing-app-javascript/
+
 
 ## Licentie
 
