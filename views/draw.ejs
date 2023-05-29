@@ -1,10 +1,20 @@
 <%- include('./partials/head.ejs') %>
 <!-- Minimale dimensies: 520px * 480px -->
 <body>
-    <div class="draw-loading-state">
-        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_b5mxg937.json" mode="bounce" background=""  speed="1.5"  style="width: 300px; height: 300px;"  loop autoplay></lottie-player> 
-    </div>
+    <section class="draw-loading-state">
+        <h1 hidden>De app is aan het laden. Een ogenblik geduld...</h1>
+        <picture>
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_b5mxg937.json" mode="bounce" background=""  speed="1.5"  loop autoplay></lottie-player> 
+        </picture>
+    </section>
+    <section class="draw-empty-state">
+        <picture>
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> 
+            <lottie-player src="https://lottie.host/6f6a9476-cc9c-41cb-bdd1-e37194570d9a/GVNBFgitee.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            <p>maak er wat moois van</p>
+        </picture>
+    </section>
     <div class="draw">
     <header class="draw-header">
         <section>

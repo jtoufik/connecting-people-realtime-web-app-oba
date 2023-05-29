@@ -318,6 +318,20 @@ button:focus-visible {
     outline: 0;
 }
 
+.hide {
+    display: none;
+}
+
+@keyframes fade-out{
+    0% {
+      opacity: 1;
+    }
+  
+    100% {
+      opacity: 0;
+    }
+  }
+
 /* Amsterdam background / searchbar */
 .search-container {
     background-image: url("/assets/index-images/Amsterdam.webp");

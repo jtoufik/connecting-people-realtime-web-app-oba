@@ -131,13 +131,17 @@
     z-index: 10;
 }
 
-.draw-loading-state-hide {
+.draw-state-hide {
    /* opacity: 0; */
    visibility: hidden;
 }
 
-.draw-loading-state lottie-player {
+.draw-loading-state picture {
     margin: auto;
+}
+
+.draw-loading-state lottie-player {
+    width: 33vw;
 }
 
 .draw-error-state {
@@ -154,7 +158,24 @@
     width: fit-content;
     display: block;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.draw-empty-state {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+    text-align: center;
+    transition: opacity var(--a-loading), visibility var(--a-loading );
+}
+
+.draw-empty-state lottie-player {
+    width: 40vw;
 }

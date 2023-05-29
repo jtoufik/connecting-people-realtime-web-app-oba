@@ -7,6 +7,8 @@ const loadingState = document.querySelector('.draw-loading-state')
 const emptyState = document.querySelector('.draw-empty-state')
 const errorState = document.querySelector('.draw-error-state')
 
+const hide = document.querySelector(".hide")
+
 // Verbinding geslaagd
 socket.io.on('reconnect', (attempt) => {
   loadingState.style.display = 'none'
@@ -193,6 +195,12 @@ socket.on("disconnect", () => {
   window.addEventListener("load", () => {
     const uiLoader = document.querySelector(".draw-loading-state");
   
-    uiLoader.classList.add("draw-loading-state-hide");
-  
+    uiLoader.classList.add("draw-state-hide");
+  })
+
+  window.addEventListener("mousemove", () => {
+    const emptyState = document.querySelector(".draw-empty-state");
+    
+    emptyState.classList.add("hide")
+
   })
