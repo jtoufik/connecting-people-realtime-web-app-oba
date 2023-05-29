@@ -2,34 +2,61 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from 'body-parser';
 import fetch from "node-fetch";
-import { createServer } from 'http'
-import { Server } from 'socket.io'
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+
+// Activeert het .env bestand
+dotenv.config();
 
 const app = express();
 const http = createServer(app);
-const io = new Server(http);
+const io = new Server(http, {
+  connectionStateRecovery: {
+    // De tijdsduur voor recovery bij disconnect
+    maxDisconnectionDuration: 2 * 60 * 1000,
+    // Of middlewares geskipped moeten worden bij recovery (ivm login)
+    skipMiddlewares: true,
+  },
+});
 
-// Voeg de onderstaande code toe voordat de server wordt gestart
+let connections = []
 
-io.on("connection", (socket) => {
-	console.log("Een nieuwe gebruiker is verbonden");
-  
-	socket.on("drawing", (data) => {
-	  socket.broadcast.emit("drawing", data);
-	});
-  
-	socket.on("drawRectangle", (data) => {
-	  socket.broadcast.emit("drawRectangle", data);
-	});
-  
-	socket.on("drawCircle", (data) => {
-	  socket.broadcast.emit("drawCircle", data);
-	});
-  
-	socket.on("disconnect", () => {
-	  console.log("Een gebruiker is losgekoppeld");
-	});
+io.on("connect", (socket) => {
+  connections.push(socket);
+  console.log(`${socket.id} is verbonden`);
+
+  socket.on("draw", (data) => {
+    connections.forEach((con) => {
+      if (con.id !== socket.id) {
+        con.emit("ondraw", { x: data.x, y: data.y });
+      }
+    });
   });
+
+  socket.on("down", (data) => {
+    connections.forEach((con) => {
+      if (con.id !== socket.id) {
+        con.emit("ondown", { x: data.x, y: data.y });
+      }
+    });
+  });
+
+  socket.on("drawing", (data) => {
+    socket.broadcast.emit("drawing", data);
+  });
+
+  socket.on("drawRectangle", (data) => {
+    socket.broadcast.emit("drawRectangle", data);
+  });
+
+  socket.on("drawCircle", (data) => {
+    socket.broadcast.emit("drawCircle", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`${socket.id} is losgekoppeld`);
+  });
+});
 
 const port = process.env.PORT || 9000;
 http.listen(port, () => {
@@ -42,12 +69,29 @@ app.set("views", "./views");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const urlBase = "https://zoeken.oba.nl/api/v1/";
-const urlKey = process.env.KEY;
-const urlOutput = "&refine=true&output=json";
+// Extenties voor de URL
+const space = "%20";
 const bookItems = "boeken";
 
-const defaultUrl = `${urlBase}search/?q=special:all%20${bookItems}&${urlKey}${urlOutput}`;
+// Endpoints voor de URL
+const urlSearch = "search/";
+
+// Opbouw URL van de API
+const urlBase = "https://zoeken.oba.nl/api/v1/";
+const urlQuery = "?q=";
+const urlDefault = "special:all";
+const urlKey = `${process.env.KEY}`;
+const urlOutput = "&refine=true&output=json";
+
+const defaultUrl =
+	urlBase +
+	urlSearch +
+	urlQuery +
+	urlDefault +
+	space +
+	bookItems +
+	urlKey +
+	urlOutput;
 
 app.get("/", (request, response) => {
   fetchJson(defaultUrl)
