@@ -22,7 +22,7 @@ const http = createServer(server)
 const io = new Server(http)
 
 // Stelt het poortnummer in waar express op gaat luisteren
-const port = process.env.PORT || 9000
+const port = process.env.PORT || 3000
 
 // Serveer client-side bestanden
 server.use(express.static("public"));
@@ -46,10 +46,10 @@ server.set("view engine", "ejs");
 server.set("views", "./views");
 
 // Start express op, haal het ingestelde poortnummer op
-server.listen(9000, function () {
+server.listen(port, function () {
 	// Toon een bericht in de console en geef het poortnummer door
 	console.log(
-		`Application started on http://localhost:9000`
+		`Application started on http://localhost:` + port
 	);
 });
 
