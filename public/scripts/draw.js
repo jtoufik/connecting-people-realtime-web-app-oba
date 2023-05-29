@@ -202,5 +202,6 @@ socket.on("disconnect", () => {
     const emptyState = document.querySelector(".draw-empty-state");
     
     emptyState.classList.add("hide")
+    emptyState.classList.remove("draw-empty-state")
 
   })
