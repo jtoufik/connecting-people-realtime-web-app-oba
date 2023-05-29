@@ -1,5 +1,28 @@
 let socket = io();
 
+// UI-states
+
+// State messages
+const loadingState = document.querySelector('.draw-loading-state')
+const emptyState = document.querySelector('.draw-empty-state')
+const errorState = document.querySelector('.draw-error-state')
+
+// Verbinding geslaagd
+ioServer.io.on('reconnect', (attempt) => {
+  loadingState.style.display = 'none'
+  emptyState.style.display = 'none'
+  errorState.style.display = 'none'
+})
+
+// Er gaat iets mis bij het verbinden
+ioServer.io.on('error', (error) => {
+  loadingState.style.display = 'none'
+  emptyState.style.display = 'none'
+  errorState.style.display = 'block'
+})
+
+
+// Tekenapp
 const canvas = document.querySelector('canvas');
 const canvasToolButtons = document.querySelectorAll('.draw-tool');
 const canvasContext = canvas.getContext('2d');
@@ -48,7 +71,20 @@ const drawing = (e) => {
       radius: Math.sqrt(Math.pow(previousMouseX - e.offsetX, 2) + Math.pow(previousMouseY - e.offsetY, 2)),
     };
 
-    drawCircle(circle);
+    const endDraw = (e) => {
+      if (selectedTool === "circle" && isDrawing) {
+        const circle = {
+          x: previousMouseX,
+          y: previousMouseY,
+          radius: Math.sqrt(Math.pow(previousMouseX - e.offsetX, 2) + Math.pow(previousMouseY - e.offsetY, 2)),
+        };
+    
+        drawCircle(circle);
+        socket.emit("drawCircle", circle);
+      }
+    
+      isDrawing = false;
+    };
   }
 };
 
@@ -95,7 +131,20 @@ canvasToolButtons.forEach(button => {
 
 canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", drawing);
-canvas.addEventListener("mouseup", () => isDrawing = false);
+canvas.addEventListener("mouseup", (e) => {
+  if (selectedTool === "circle" && isDrawing) {
+    const circle = {
+      x: previousMouseX,
+      y: previousMouseY,
+      radius: Math.sqrt(Math.pow(previousMouseX - e.offsetX, 2) + Math.pow(previousMouseY - e.offsetY, 2)),
+    };
+
+    drawCircle(circle);
+    socket.emit("drawCircle", circle);
+  }
+
+  isDrawing = false;
+});
 
 socket.on("drawing", (data) => {
   if (data.tool === "brush") {
@@ -129,6 +178,21 @@ socket.on("connect", () => {
   console.log("Connected to server.");
 });
 
+// Er gaat iets mis bij het verbinden
+socket.io.on('error', (error) => {
+  loadingState.style.display = 'none'
+  emptyState.style.display = 'none'
+  errorState.style.display = 'inline'
+})
+
 socket.on("disconnect", () => {
   console.log("Disconnected from server.");
 });
+
+  // UI loader event
+  window.addEventListener("load", () => {
+    const uiLoader = document.querySelector(".draw-loading-state");
+  
+    uiLoader.classList.add("draw-loading-state-hide");
+  
+  })
