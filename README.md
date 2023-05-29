@@ -1,4 +1,3 @@
-![Schermafbeelding 2023-05-23 om 11 42 03](https://github.com/Stefan-Espant/connecting-people-realtime-web-app-oba/assets/89298385/1d27b143-98e1-4a49-bf33-d7a7a25d62c0)
 
 # Oba Realtime ChatArt 
 <!-- Geef je project een titel en schrijf in één zin wat het is -->
@@ -82,14 +81,14 @@ Voor dit project is gebruik gemaakt van diverse technieken als:
 Houd er rekening mee dat je mogelijk de vereiste afhankelijkheden moet installeren door npm install uit te voeren in de terminal, zoals eerder vermeld.
 
 
-## Bronnen
+## 📚Bronnen
 [docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)
 
-https://www.youtube.com/watch?v=y84tBZo8GFo 
+[Inspiratie tekenapp](https://www.youtube.com/watch?v=y84tBZo8GFo)
 
-https://codingnepalweb.com/demos/drawing-app-javascript/
+[LottieFiles animatie Loading state](https://lottiefiles.com/web-player?lottie_url=https%3A%2F%2Fassets10.lottiefiles.com%2Fpackages%2Flf20_b5mxg937.json)
 
 
-## Licentie
+## 👾Licentie
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
