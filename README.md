@@ -85,9 +85,9 @@ Houd er rekening mee dat je mogelijk de vereiste afhankelijkheden moet installer
 ## Bronnen
 [docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)
 
-https://www.youtube.com/watch?v=y84tBZo8GFo 
+[Inspiratie tekenapp](https://www.youtube.com/watch?v=y84tBZo8GFo)
 
-https://codingnepalweb.com/demos/drawing-app-javascript/
+[LottieFiles animatie Loading state](https://lottiefiles.com/web-player?lottie_url=https%3A%2F%2Fassets10.lottiefiles.com%2Fpackages%2Flf20_b5mxg937.json)
 
 
 ## Licentie
