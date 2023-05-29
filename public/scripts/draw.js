@@ -8,14 +8,14 @@ const emptyState = document.querySelector('.draw-empty-state')
 const errorState = document.querySelector('.draw-error-state')
 
 // Verbinding geslaagd
-ioServer.io.on('reconnect', (attempt) => {
+socket.io.on('reconnect', (attempt) => {
   loadingState.style.display = 'none'
   emptyState.style.display = 'none'
   errorState.style.display = 'none'
 })
 
 // Er gaat iets mis bij het verbinden
-ioServer.io.on('error', (error) => {
+socket.io.on('error', (error) => {
   loadingState.style.display = 'none'
   emptyState.style.display = 'none'
   errorState.style.display = 'block'

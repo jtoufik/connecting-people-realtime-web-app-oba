@@ -1,8 +1,8 @@
-import express from "express";
+import express, { response } from "express";
 import dotenv from "dotenv";
 import bodyParser from 'body-parser';
 import fetch from "node-fetch";
-import { createServer } from 'http';
+import { createServer, request } from 'http';
 import { Server } from 'socket.io';
 
 // Activeert het .env bestand
@@ -222,6 +222,11 @@ app.get("/draw", (request, response) => {
       response.render("error", { error: "Fout bij het ophalen van gegevens" });
     });
 });
+
+// Maakt een route naar de 404 pagina
+app.get("*", (request, response) => {
+  response.status(404).render("404");
+})
 
 async function fetchJson(url) {
   const response = await fetch(url);
