@@ -1,5 +1,3 @@
-// Boeken carousel
-
 const carousel = document.querySelector(".carousel");
 firstImg = carousel.querySelectorAll(".book")[0];
 const arrowIcons = document.querySelectorAll(".wrapper .arrow");
