@@ -1,8 +1,4 @@
 
-
-
-<img width="540" alt="3F5C2641-AFA4-4688-A159-9C87430F8AB5" src="https://github.com/jtoufik/connecting-people-realtime-web-app-oba/assets/94745953/0f9be9b8-f0e3-42f4-99cc-d3222a79bf6a">
-
 # Oba Realtime ChatArt 
 <!-- Geef je project een titel en schrijf in één zin wat het is -->
 
@@ -88,9 +84,9 @@ Houd er rekening mee dat je mogelijk de vereiste afhankelijkheden moet installer
 ## 📚Bronnen
 [docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)
 
-https://www.youtube.com/watch?v=y84tBZo8GFo 
+[Inspiratie tekenapp](https://www.youtube.com/watch?v=y84tBZo8GFo)
 
-https://codingnepalweb.com/demos/drawing-app-javascript/
+[LottieFiles animatie Loading state](https://lottiefiles.com/web-player?lottie_url=https%3A%2F%2Fassets10.lottiefiles.com%2Fpackages%2Flf20_b5mxg937.json)
 
 
 ## 👾Licentie
