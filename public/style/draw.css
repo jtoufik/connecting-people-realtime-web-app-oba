@@ -3,9 +3,28 @@
     height: 100vh;
     padding: var(--u-default);
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 18fr 1fr;
     flex-direction: column;
-    gap: 1em;
+    grid-gap: 1.5em;
+}
+
+.draw header {
+    width: 100%;
+    height: fit-content;
+    box-shadow: none;
+    padding: 0;
+}
+
+.draw header span {
+    display: flex;
+    align-items: center;
+    gap: var(--u-medium);
+}
+
+.draw main {
+    width: 100%;
 }
 
 .draw canvas {
@@ -13,14 +32,22 @@
     height: 100%;
     border: var(--u-pico) solid var(--c-accent-75);
     border-radius: var(--u-small);
+    display: grid;
+}
+
+.draw footer {
+    background: none;
+    padding: 0;
 }
 
 .draw nav {
     width: auto;
+    height: fit-content;
     border: var(--u-pico) solid var(--c-accent-75);
     border-radius: var(--u-small);
     background-color: var(--c-default);
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     align-items: center;
     justify-content: center;
     gap: var(--u-medium);
@@ -42,9 +69,10 @@
 
 .draw button:is(:focus, .active) {
     background-color: var(--c-accent-150);
+    border: 0;
 }
 
-.draw button.active svg {
+.draw button:is(:focus, .active) svg {
     fill: var(--c-default);
 }
 
@@ -64,6 +92,20 @@
     cursor: pointer;
 }
 
+.draw-header section {
+    width: 100%;
+    border: var(--u-pico) solid var(--c-accent-75);
+    border-radius: var(--u-small);
+    display: flex;
+    justify-content: space-between;
+    padding: var(--u-default);
+}
+
+.draw-header section svg {
+    width: 2em;
+    height: 2em;
+}
+
 /* Color menu */
 
 .draw summary {
@@ -72,6 +114,68 @@
     cursor: pointer;
 }
 
-.draw option {
 
+/* UI-states */
+.draw-loading-state {
+    width: 100%;
+    height: 100%;
+    background-color: var(--c-default);
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    transition: opacity var(--a-loading), visibility var(--a-loading );
+    z-index: 10;
+}
+
+.draw-state-hide {
+   /* opacity: 0; */
+   visibility: hidden;
+}
+
+.draw-loading-state picture {
+    margin: auto;
+}
+
+.draw-loading-state lottie-player {
+    width: 33vw;
+}
+
+.draw-error-state {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.draw-error-state section {
+    width: fit-content;
+    display: block;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.draw-empty-state {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+    text-align: center;
+    transition: opacity var(--a-loading), visibility var(--a-loading );
+}
+
+.draw-empty-state lottie-player {
+    width: 40vw;
 }
