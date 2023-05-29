@@ -19,6 +19,29 @@ const io = new Server(http, {
   },
 });
 
+import * as path from 'path'
+import {
+	Server
+} from 'socket.io'
+import {
+	createServer,
+	request
+} from 'http'
+import fetch from "node-fetch";
+
+// Maakt een nieuwe express app
+const server = express();
+const http = createServer(server)
+const io = new Server(http)
+
+// Stelt het poortnummer in waar express op gaat luisteren
+const port = process.env.PORT || 3000
+
+// Serveer client-side bestanden
+server.use(express.static("public"));
+server.set("views", "./views")
+
+
 let connections = []
 
 io.on("connect", (socket) => {
@@ -61,6 +84,23 @@ io.on("connect", (socket) => {
 const port = process.env.PORT || 9000;
 http.listen(port, () => {
   console.log(`Server is gestart op http://localhost:${port}`);
+
+// Handelt de formulieren af
+server.use(bodyParser.urlencoded({
+	extended: true
+}));
+server.use(bodyParser.json());
+
+// Stel in hoe express gebruikt kan worden
+server.set("view engine", "ejs");
+server.set("views", "./views");
+
+// Start express op, haal het ingestelde poortnummer op
+server.listen(port, function () {
+	// Toon een bericht in de console en geef het poortnummer door
+	console.log(
+		`Application started on http://localhost:` + port
+	);
 });
 
 app.use(express.static("public"));
