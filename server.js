@@ -1,46 +1,26 @@
-import express, { response } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import bodyParser from 'body-parser';
 import fetch from "node-fetch";
-import { createServer, request } from 'http';
+import { createServer } from 'http';
 import { Server } from 'socket.io';
 
-// Activeert het .env bestand
 dotenv.config();
 
 const app = express();
 const http = createServer(app);
 const io = new Server(http, {
   connectionStateRecovery: {
-    // De tijdsduur voor recovery bij disconnect
     maxDisconnectionDuration: 2 * 60 * 1000,
-    // Of middlewares geskipped moeten worden bij recovery (ivm login)
     skipMiddlewares: true,
   },
 });
 
-import * as path from 'path'
-import {
-	Server
-} from 'socket.io'
-import {
-	createServer,
-	request
-} from 'http'
-import fetch from "node-fetch";
-
-// Maakt een nieuwe express app
-const server = express();
-const http = createServer(server)
-const io = new Server(http)
-
-// Stelt het poortnummer in waar express op gaat luisteren
-const port = process.env.PORT || 3000
-
-// Serveer client-side bestanden
-server.use(express.static("public"));
-server.set("views", "./views")
-
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.set("views", "./views");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 let connections = []
 
@@ -84,54 +64,19 @@ io.on("connect", (socket) => {
 const port = process.env.PORT || 9000;
 http.listen(port, () => {
   console.log(`Server is gestart op http://localhost:${port}`);
-
-// Handelt de formulieren af
-server.use(bodyParser.urlencoded({
-	extended: true
-}));
-server.use(bodyParser.json());
-
-// Stel in hoe express gebruikt kan worden
-server.set("view engine", "ejs");
-server.set("views", "./views");
-
-// Start express op, haal het ingestelde poortnummer op
-server.listen(port, function () {
-	// Toon een bericht in de console en geef het poortnummer door
-	console.log(
-		`Application started on http://localhost:` + port
-	);
 });
 
 app.use(express.static("public"));
-app.set("view engine", "ejs");
-app.set("views", "./views");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
-// Extenties voor de URL
 const space = "%20";
 const bookItems = "boeken";
-
-// Endpoints voor de URL
 const urlSearch = "search/";
-
-// Opbouw URL van de API
 const urlBase = "https://zoeken.oba.nl/api/v1/";
 const urlQuery = "?q=";
 const urlDefault = "special:all";
 const urlKey = `${process.env.KEY}`;
 const urlOutput = "&refine=true&output=json";
-
-const defaultUrl =
-	urlBase +
-	urlSearch +
-	urlQuery +
-	urlDefault +
-	space +
-	bookItems +
-	urlKey +
-	urlOutput;
+const defaultUrl = urlBase + urlSearch + urlQuery + urlDefault + space + bookItems + urlKey + urlOutput;
 
 app.get("/", (request, response) => {
   fetchJson(defaultUrl)
@@ -285,11 +230,3 @@ async function postJson(url, data) {
   const responseData = await response.json();
   return responseData;
 }
-
-/**
- * Demonstrates a longpolling process, io is passed along to prevent side-effects
- * @param {*} io a reference to socket.io used to send a message.
- */
- function longPollExample(io) {
-	io.emit('whatever', 'somebody set up us the bomb!')
-  }
