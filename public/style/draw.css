@@ -176,6 +176,11 @@
     transition: opacity var(--a-loading), visibility var(--a-loading );
 }
 
+.draw-empty-state p {
+    width: fit-content;
+    margin: auto;
+}
+
 .draw-empty-state lottie-player {
     width: 40vw;
 }
