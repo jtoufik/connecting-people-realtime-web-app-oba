@@ -32,7 +32,7 @@ function toggleDetails() {
 
 // --------
 
-let socket = io()
+let socketWrite = io()
 let messages = document.querySelector('.chat-box ul')
 let input = document.querySelector('.chat-input')
 
@@ -42,20 +42,20 @@ document.querySelector('.chat-form').addEventListener('submit', (event) => {
 
     console.log(input, messages)
     if (input.value) {
-        socket.emit('message', input.value)
+        socketWrite.emit('message', input.value)
         input.value = ''
     }
 })
 
-socket.on('message', (message) => {
+socketWrite.on('message', (message) => {
     addMessage(message)
 })
 
-socket.on('whatever', (message) => {
+socketWrite.on('whatever', (message) => {
     addMessage(message)
 })
 
-socket.on('history', (history) => {
+socketWrite.on('history', (history) => {
     history.forEach((message) => {
         addMessage(message)
     })
