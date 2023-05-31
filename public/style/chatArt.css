@@ -49,11 +49,9 @@ summary{
 
 .chat-box ul{
     display: block;
+    overflow: hidden;
 }
 
-.chat-box li{
-    color: black;
-}
 
 summary > h1{
     font-size: 1.2em;
@@ -63,7 +61,6 @@ summary > h1{
 .chat-box form {
     margin: 0 0 1rem 0;
     padding: 0;
-    width: 18rem;
     height: 2rem;
     display: flex;
     justify-content: center;
@@ -126,7 +123,6 @@ summary > h1{
     padding: 0.2em;
     list-style-type: none;
     flex-grow: 2;
-    width: 18em;
     overflow-y: scroll;
 }
 
@@ -136,7 +132,9 @@ summary > h1{
 
 .chat-box ul > li {
     padding: 0.5rem 1rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    color: black;
+    max-width: 22em;
 }
 
 .chat-submit{
