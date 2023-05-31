@@ -74,7 +74,7 @@ const urlSearch = "search/";
 const urlBase = "https://zoeken.oba.nl/api/v1/";
 const urlQuery = "?q=";
 const urlDefault = "special:all";
-const urlKey = `${process.env.KEY}`;
+const urlKey = `&authorization=${process.env.KEY}`;
 const urlOutput = "&refine=true&output=json";
 const defaultUrl = urlBase + urlSearch + urlQuery + urlDefault + space + bookItems + urlKey + urlOutput;
 
