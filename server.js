@@ -23,6 +23,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 let connections = []
+let history = []
+
+const historySize = 50
+
+// Realtime chatroom
+
+io.on('connection', (socket) => {
+  // Log de connectie naar console
+    console.log('a user connected')
+  // Stuur de historie door, let op: luister op socket, emit op io!
+    io.emit('history', history)
+
+  // Luister naar een message van een gebruiker
+    socket.on('message', (message) => {
+    // Check de maximum lengte van de historie
+    while (history.length > historySize) {
+        history.shift()
+    }
+    // Voeg het toe aan de historie
+    history.push(message)
+    // Verstuur het bericht naar alle clients
+    io.emit('message', message)
+    })
+
+  // Luister naar een disconnect van een gebruiker
+    socket.on('disconnect', () => {
+    console.log('user disconnected')
+    })
+})
+
+// Realtime draw room
 
 io.on("connect", (socket) => {
   connections.push(socket);
@@ -74,7 +105,7 @@ const urlSearch = "search/";
 const urlBase = "https://zoeken.oba.nl/api/v1/";
 const urlQuery = "?q=";
 const urlDefault = "special:all";
-const urlKey = `${process.env.KEY}`;
+const urlKey = `&authorization=${process.env.KEY}`;
 const urlOutput = "&refine=true&output=json";
 const defaultUrl = urlBase + urlSearch + urlQuery + urlDefault + space + bookItems + urlKey + urlOutput;
 
