@@ -47,11 +47,6 @@ summary{
     flex-direction: column;
 }
 
-.chat-box ul{
-    display: block;
-    overflow: hidden;
-}
-
 
 summary > h1{
     font-size: 1.2em;
@@ -119,10 +114,12 @@ summary > h1{
 }
 
 .chat-box ul {
-    margin: 0;
+    margin: 0 0 .9em 0;
     padding: 0.2em;
     list-style-type: none;
     flex-grow: 2;
+    display: block;
+    overflow: hidden;
     overflow-y: scroll;
 }
 
@@ -134,7 +131,22 @@ summary > h1{
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
     color: black;
-    max-width: 22em;
+    margin: 1em;
+    max-width: fit-content;
+    overflow: hidden;
+    backdrop-filter: blur(1rem);
+    border-radius: 10px;
+    box-shadow: 0.8rem 0.8rem 1.6rem 0 rgba(206, 205, 205, 0.5), -0.8rem -0.8rem 1.6rem 0 rgba(255, 255, 255, 0.5);
+}
+
+
+.blank-initial-message {
+    justify-content: center;
+    width: 11rem;
+    height: 6rem;
+    display: flex;
+    flex-direction: column;
+    margin-right: 2em;
 }
 
 .chat-submit{
