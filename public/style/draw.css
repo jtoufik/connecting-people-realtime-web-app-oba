@@ -184,3 +184,11 @@
 .draw-empty-state lottie-player {
     width: 40vw;
 }
+
+.js-enabled .link-draw {
+    display: block;
+}
+
+.link-draw {
+    display: none;
+}

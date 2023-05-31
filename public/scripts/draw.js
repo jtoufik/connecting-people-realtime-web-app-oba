@@ -1,5 +1,7 @@
 let socket = io();
 
+document.documentElement.classList.add("js-enabled");
+
 // UI-states
 
 // State messages
@@ -205,3 +207,5 @@ socket.on("disconnect", () => {
     emptyState.classList.remove("draw-empty-state")
 
   })
+
+
