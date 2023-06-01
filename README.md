@@ -2,7 +2,8 @@
 # Oba Realtime ChatArt 
 <!-- Geef je project een titel en schrijf in één zin wat het is -->
 
-![Uploading Scherm­afbeelding 2023-06-01 om 11.23.19.png…]()
+<img width="1503" alt="Scherm­afbeelding 2023-06-01 om 11 23 19" src="https://github.com/jtoufik/connecting-people-realtime-web-app-oba/assets/112856590/6cfaf8b2-bee8-4ae3-9409-c047e049d335">
+
 
 ## Inhoudsopgave
 
