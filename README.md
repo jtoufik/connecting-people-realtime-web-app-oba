@@ -4,6 +4,8 @@
 
 <img width="1503" alt="Scherm­afbeelding 2023-06-01 om 11 23 19" src="https://github.com/jtoufik/connecting-people-realtime-web-app-oba/assets/112856590/6cfaf8b2-bee8-4ae3-9409-c047e049d335">
 
+<img width="1456" alt="Scherm­afbeelding 2023-06-01 om 11 26 02" src="https://github.com/jtoufik/connecting-people-realtime-web-app-oba/assets/112856590/7ac23f09-cc85-4e94-a928-7cc3d480c4be">
+
 
 ## Inhoudsopgave
 
