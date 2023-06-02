@@ -2,7 +2,7 @@
 # Oba Realtime ChatArt 
 <!-- Geef je project een titel en schrijf in één zin wat het is -->
 
-## Inleiding
+**Inleiding
 
 Dit is onze realtime oba chatart app.
 
