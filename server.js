@@ -1,340 +1,263 @@
-// Importeert basis modules uit npm
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from 'body-parser';
+import fetch from "node-fetch";
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
-// Activeert het .env bestand
 dotenv.config();
 
-import * as path from 'path'
-import {
-	Server
-} from 'socket.io'
-import {
-	createServer,
-	request
-} from 'http'
-import fetch from "node-fetch";
-
-// Maakt een nieuwe express app
-const server = express();
-const http = createServer(server)
-const io = new Server(http)
-
-// Stelt het poortnummer in waar express op gaat luisteren
-const port = process.env.PORT || 3000
-
-// Serveer client-side bestanden
-server.use(express.static("public"));
-server.set("views", "./views")
-
-// Maakt een route voor de index
-server.get("/", (request, response) => {
-	fetchJson(defaultUrl).then((data) => {
-		response.render("index", data);
-	});
+const app = express();
+const http = createServer(app);
+const io = new Server(http, {
+  connectionStateRecovery: {
+    maxDisconnectionDuration: 2 * 60 * 1000,
+    skipMiddlewares: true,
+  },
 });
 
-// Handelt de formulieren af
-server.use(bodyParser.urlencoded({
-	extended: true
-}));
-server.use(bodyParser.json());
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.set("views", "./views");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// Stel in hoe express gebruikt kan worden
-server.set("view engine", "ejs");
-server.set("views", "./views");
+let connections = []
+let history = []
 
-// Start express op, haal het ingestelde poortnummer op
-server.listen(port, function () {
-	// Toon een bericht in de console en geef het poortnummer door
-	console.log(
-		`Application started on http://localhost:` + port
-	);
+const historySize = 50
+
+// Realtime chatroom
+
+io.on('connection', (socket) => {
+  // Log de connectie naar console
+    console.log('a user connected')
+  // Stuur de historie door, let op: luister op socket, emit op io!
+    io.emit('history', history)
+
+  // Luister naar een message van een gebruiker
+    socket.on('message', (message) => {
+    // Check de maximum lengte van de historie
+    while (history.length > historySize) {
+        history.shift()
+    }
+    // Voeg het toe aan de historie
+    history.push(message)
+    // Verstuur het bericht naar alle clients
+    io.emit('message', message)
+    })
+
+  // Luister naar een disconnect van een gebruiker
+    socket.on('disconnect', () => {
+    console.log('user disconnected')
+    })
+})
+
+// Realtime draw room
+
+io.on("connect", (socket) => {
+  connections.push(socket);
+  console.log(`${socket.id} is verbonden`);
+
+  socket.on("draw", (data) => {
+    connections.forEach((con) => {
+      if (con.id !== socket.id) {
+        con.emit("ondraw", { x: data.x, y: data.y });
+      }
+    });
+  });
+
+  socket.on("down", (data) => {
+    connections.forEach((con) => {
+      if (con.id !== socket.id) {
+        con.emit("ondown", { x: data.x, y: data.y });
+      }
+    });
+  });
+
+  socket.on("drawing", (data) => {
+    socket.broadcast.emit("drawing", data);
+  });
+
+  socket.on("drawRectangle", (data) => {
+    socket.broadcast.emit("drawRectangle", data);
+  });
+
+  socket.on("drawCircle", (data) => {
+    socket.broadcast.emit("drawCircle", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`${socket.id} is losgekoppeld`);
+  });
 });
 
-// Extenties voor de URL
+const port = process.env.PORT || 9000;
+http.listen(port, () => {
+  console.log(`Server is gestart op http://localhost:${port}`);
+});
+
+app.use(express.static("public"));
+
 const space = "%20";
 const bookItems = "boeken";
-
-// Endpoints voor de URL
 const urlSearch = "search/";
-
-// Opbouw URL van de API
 const urlBase = "https://zoeken.oba.nl/api/v1/";
 const urlQuery = "?q=";
 const urlDefault = "special:all";
-const urlKey = `${process.env.KEY}`;
+const urlKey = `&authorization=${process.env.KEY}`;
 const urlOutput = "&refine=true&output=json";
+const defaultUrl = urlBase + urlSearch + urlQuery + urlDefault + space + bookItems + urlKey + urlOutput;
 
-// opbouw url activiteiten en Cursus
-const activityURL =
-	urlBase +
-	"/search/?q=special:all%20table:activiteiten&authorization=" +
-	process.env.authorization +
-	"&output=json";
-const courseURL =
-	urlBase +
-	"/search/?q=special:all%20table:jsonsrc&authorization=" +
-	process.env.authorization +
-	"&output=json";
-
-const defaultUrl =
-	urlBase +
-	urlSearch +
-	urlQuery +
-	urlDefault +
-	space +
-	bookItems +
-	urlKey +
-	urlOutput;
-
-// Maakt een route voor de index
-server.get("/", (request, response) => {
-	fetchJson(defaultUrl).then((data) => {
-		response.render("index", data);
-	});
+app.get("/", (request, response) => {
+  fetchJson(defaultUrl)
+    .then((data) => {
+      response.render("index", data);
+    })
+    .catch((error) => {
+      response.render("error", { error: "Fout bij het ophalen van gegevens" });
+    });
 });
 
+app.get("/item", async (request, response) => {
+  const urlId = request.query.id || "";
+  const itemUrl = `${urlBase}search/?id=${urlId}${urlKey}${urlOutput}`;
 
-// Maakt route voor loading
-
-server.get("/loading", (request, response) => {
-	fetchJson(defaultUrl).then((data) => {
-		response.render("loading", data);
-	});
+  try {
+    const data = await fetchJson(itemUrl);
+    response.render("item", data);
+  } catch (error) {
+    response.render("error", { error: "Fout bij het ophalen van gegevens" });
+  }
 });
 
+app.get("/reserveren", async (request, response) => {
+  const urlId = request.query.id || "|oba-catalogus|279240";
+  const itemUrl = `${urlBase}search/?id=${urlId}${urlKey}${urlOutput}`;
+  const reservationsUrl = "https://api.oba.fdnd.nl/api/v1/reserveringen";
 
-// Maakt route voor Blank-initial-state
+  try {
+    const [itemData, reservationsData] = await Promise.all([
+      fetchJson(itemUrl),
+      fetchJson(reservationsUrl)
+    ]);
 
-server.get("/blank-initial-state", (request, response) => {
-	fetchJson(defaultUrl).then((data) => {
-		response.render("blank-initial-state", data);
-	});
-});
-// Maakt een route voor de detailpagina
-server.get("/item", async (request, response) => {
-	let uniqueQuery = "?id=";
-	let urlId = request.query.id || "";
-
-	const itemUrl =
-		urlBase +
-		urlSearch +
-		uniqueQuery +
-		urlId +
-		urlKey +
-		urlOutput;
-
-	const data = await fetch(itemUrl)
-		.then((response) => response.json())
-		.catch((err) => err);
-	response.render("item", data);
+    response.render("reserveren", { itemData, reservationsData });
+  } catch (error) {
+    response.render("error", { error: "Fout bij het ophalen van gegevens" });
+  }
 });
 
-// Maakt een route voor de reguliere reserveringspagina
-server.get("/reserveren", async (request, response) => {
-	const baseurl = "https://api.oba.fdnd.nl/api/v1";
-	const url = `${baseurl}/reserveringen`;
+app.post("/reserveren", async (request, response) => {
+  const url = "https://api.oba.fdnd.nl/api/v1/reserveringen";
 
-	let uniqueQuery = "?id=";
-	let urlId = request.query.id || "|oba-catalogus|279240";
+  try {
+    const data = await postJson(url, request.body);
 
-	const itemUrl =
-		urlBase +
-		urlSearch +
-		uniqueQuery +
-		urlId +
-		urlKey +
-		urlOutput;
-
-	const data = await fetch(itemUrl)
-		.then((response) => response.json())
-		.catch((err) => err);
-	response.render("reserveren", data);
-
-	fetchJson(url).then((data) => {
-		response.render("reserveren", data);
-	});
+    if (data.id) {
+      response.redirect('/succes');
+    } else {
+      response.redirect('/succes');
+    }
+  } catch (error) {
+    response.render("error", { error: "Fout bij het versturen van gegevens" });
+  }
 });
 
-// Verstuurt de data naar de API
-server.post("/reserveren", (request, response) => {
-	const baseurl = "https://api.oba.fdnd.nl/api/v1";
-	const url = `${baseurl}/reserveringen`;
+app.get("/reserveer-een-studieplek", (request, response) => {
+  const url = "https://api.oba.fdnd.nl/api/v1/studieplekReserveringen";
 
-	postJson(url, request.body).then((data) => {
-		let newReservering = {
-			...request.body
-		}
-		console.log(newReservering);
-		if (data.id) {
-			response.redirect('/succes')
-			console.log("werkt!")
-
-		} else {
-			response.redirect('/succes')
-		}
-
-	});
+  fetchJson(url)
+    .then((data) => {
+      response.render("reserveer-een-studieplek", data);
+    })
+    .catch((error) => {
+      response.render("error", { error: "Fout bij het ophalen van gegevens" });
+    });
 });
 
-// Maakt een route voor de studieplek reserveringspagina
-server.get(
-	"/reserveer-een-studieplek",
-	(request, response) => {
-		const baseurl = "https://api.oba.fdnd.nl/api/v1";
-		const url = `${baseurl}/studieplekReserveringen`;
+app.post("/reserveer-een-studieplek", async (request, response) => {
+  const url = "https://api.oba.fdnd.nl/api/v1/studieplekReserveringen";
 
-		fetchJson(url).then((data) => {
-			response.render("reserveer-een-studieplek", data);
-		});
-	}
-);
+  try {
+    const data = await postJson(url, request.body);
 
-server.get("/succes", (request, response) => {
-	response.render("succes");
+    if (data.success) {
+      response.redirect("/");
+    } else {
+      const errorMessage = `${data.message}: Mogelijk komt dit door het id dat al bestaat.`;
+      response.render("error", { error: errorMessage });
+    }
+  } catch (error) {
+    response.render("error", { error: "Fout bij het versturen van gegevens" });
+  }
 });
 
-// Maakt een route voor de studieplek reserveringspagina om vestiging foto's in te laden
-server.get(
-	"/reserveer-een-studieplek",
-	(request, response) => {
-		const baseurl = "https://api.oba.fdnd.nl/api/v1";
-		const url = `${baseurl}/vestigingen?clgnoumd6fttt0buw6rwa00pa`;
+app.get("/activiteiten", (request, response) => {
+  const url = `${urlBase}search/?q=special:all%20table:activiteiten&authorization=${process.env.authorization}${urlOutput}`;
 
-		fetchJson(url).then((data) => {
-			response.render("reserveer-een-studieplek", data);
-		});
-	}
-);
-
-// Verstuurt de data van de studieplek naar de API
-server.post(
-	"/reserveer-een-studieplek",
-	(request, response) => {
-		const baseurl = "https://api.oba.fdnd.nl/api/v1";
-		const url = `${baseurl}/studieplekReserveringen`;
-
-		postJson(url, request.body).then((data) => {
-			let newReservation = {
-				...request.body,
-			};
-
-			console.log(data);
-
-			if (data.success) {
-				response.redirect("/");
-			} else {
-				const errormessage = `${data.message}: Mogelijk komt dit door het id die al bestaat.`;
-				const newdata = {
-					error: errormessage,
-					values: newReservation,
-				};
-
-				response.render(
-					"reserveer-een-studieplek",
-					newdata
-				);
-			}
-
-			console.log(JSON.stringify(data.errors));
-		});
-	}
-);
-
-//Maakt een route voor de activiteiten pagina
-server.get("/activiteiten", (request, response) => {
-	fetchJson(activityURL).then((data) => {
-		let dataClone = structuredClone(data);
-
-		if (request.query.titles) {
-			dataClone.results.titles =
-				dataClone.results.titles.filter(function (title) {
-					return results.titles.includes(
-						request.query.titles
-					);
-				});
-		}
-
-		response.render("activiteiten", dataClone);
-	});
+  fetchJson(url)
+    .then((data) => {
+      response.render("activiteiten", data);
+    })
+    .catch((error) => {
+      response.render("error", { error: "Fout bij het ophalen van gegevens" });
+    });
 });
 
-// Maakt route voor de cursussen pagina
-server.get("/cursussen", (request, response) => {
-	fetchJson(courseURL).then((data) => {
-		let dataClone = structuredClone(data);
+app.get("/cursussen", (request, response) => {
+  const url = `${urlBase}search/?q=special:all%20table:jsonsrc&authorization=${process.env.authorization}${urlOutput}`;
 
-		if (request.query.titles) {
-			dataClone.results.titles =
-				dataClone.results.titles.filter(function (title) {
-					return results.titles.includes(
-						request.query.titles
-					);
-				});
-		}
-		response.render("cursussen", dataClone);
-	});
+  fetchJson(url)
+    .then((data) => {
+      response.render("cursussen", data);
+    })
+    .catch((error) => {
+      response.render("error", { error: "Fout bij het ophalen van gegevens" });
+    });
 });
 
-//Maakt route voor de Vestigingen pagina
-server.get(
-	"/vestigingen",
-	(request, response) => {
-		const baseurl = "https://api.oba.fdnd.nl/api/v1";
-		const url = `${baseurl}/vestigingen`;
+app.get("/vestigingen", (request, response) => {
+  const url = `${urlBase}vestigingen?clgnoumd6fttt0buw6rwa00pa`;
 
-		fetchJson(url).then((data) => {
-			response.render("vestigingen", data);
-		});
-	}
-);
-
-server.get("/draw", (request, response) => {
-	fetchJson(defaultUrl).then((data) => {
-		response.render("draw", data);
-	});
+  fetchJson(url)
+    .then((data) => {
+      response.render("vestigingen", data);
+    })
+    .catch((error) => {
+      response.render("error", { error: "Fout bij het ophalen van gegevens" });
+    });
 });
 
-// Regelt het realtime tekenen
-
-// Socket.IO verbinding
-io.on('connection', (socket) => {
-	console.log('Een gebruiker heeft verbinding gemaakt');
-
-	// Luister naar tekengebeurtenis
-	socket.on('teken', (data) => {
-		// Stuur het tekengegevens naar alle verbonden clients
-		io.emit('teken', data);
-	});
-
-	// Afhandelen van ontkoppeling
-	socket.on('disconnect', () => {
-		console.log('Een gebruiker heeft de verbinding verbroken');
-	});
+app.get("/draw", (request, response) => {
+  fetchJson(defaultUrl)
+    .then((data) => {
+      response.render("draw", data);
+    })
+    .catch((error) => {
+      response.render("error", { error: "Fout bij het ophalen van gegevens" });
+    });
 });
 
-/**
- * fetchJson() is a wrapper for the experimental node fetch api. It fetches the url
- * passed as a parameter and returns the response body parsed through json.
- * @param {*} url the api endpoint to address
- * @returns the json response from the api endpoint
- */
-export async function fetchJson(url, payload = {}) {
-	return await fetch(url, payload)
-		.then((response) => response.json())
-		.catch((error) => error);
+// Maakt een route naar de 404 pagina
+app.get("*", (request, response) => {
+  response.status(404).render("404");
+})
+
+async function fetchJson(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
 }
 
-export async function postJson(url, body) {
-	return await fetch(url, {
-			method: "post",
-			body: JSON.stringify(body),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-		.then((response) => response.json())
-		.catch((error) => error);
+async function postJson(url, data) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+  const responseData = await response.json();
+  return responseData;
 }

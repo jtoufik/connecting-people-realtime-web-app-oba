@@ -1,12 +1,10 @@
-// Boeken carousel
-
 const carousel = document.querySelector(".carousel");
 firstImg = carousel.querySelectorAll(".book")[0];
 const arrowIcons = document.querySelectorAll(".wrapper .arrow");
 
-carousel.addEventListener("mousedown", dragStart);
-carousel.addEventListener("mousemove", dragging);
-carousel.addEventListener("mouseup", dragStop);
+// carousel.addEventListener("mousedown", dragStart);
+// carousel.addEventListener("mousemove", dragging);
+// carousel.addEventListener("mouseup", dragStop);
 
 // ---------------------------------------------------------------
 
@@ -30,4 +28,40 @@ draw.addEventListener('toggle', function(event) {
 function toggleDetails() {
     let detailsElement = document.getElementById("chat");
     detailsElement.open = !detailsElement.open;
+}
+
+// --------
+
+let socketWrite = io()
+let messages = document.querySelector('.chat-box ul')
+let input = document.querySelector('.chat-input')
+
+
+document.querySelector('.chat-form').addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    console.log(input, messages)
+    if (input.value) {
+        socketWrite.emit('message', input.value)
+        input.value = ''
+    }
+})
+
+socketWrite.on('message', (message) => {
+    addMessage(message)
+})
+
+socketWrite.on('whatever', (message) => {
+    addMessage(message)
+})
+
+socketWrite.on('history', (history) => {
+    history.forEach((message) => {
+        addMessage(message)
+    })
+})
+
+function addMessage(message) {
+    messages.appendChild(Object.assign(document.createElement('li'), { textContent: message }))
+    messages.scrollTop = messages.scrollHeight
 }

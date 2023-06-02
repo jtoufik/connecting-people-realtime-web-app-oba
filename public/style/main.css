@@ -10,6 +10,7 @@
     --a-default: 0.3s;
     --a-medium: 0.6s;
     --a-large: 1s;
+    --a-loading: 3s;
 
     /* eenheden */
     --u-pico: 0.0625em;
@@ -60,11 +61,13 @@ html {
 @font-face {
     font-family: "Amsterdam-sans-Regular";
     src: url("/fonts/otf/AmsterdamSans-Regular.otf");
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Amsterdam-sans-Light";
     src: url("/fonts/otf/AmsterdamSans-Light.otf");
+    font-display: swap;
 }
 
 body {
@@ -314,6 +317,20 @@ a:focus {
 button:focus-visible {
     outline: 0;
 }
+
+.hide {
+    display: none;
+}
+
+@keyframes fade-out{
+    0% {
+      opacity: 1;
+    }
+  
+    100% {
+      opacity: 0;
+    }
+  }
 
 /* Amsterdam background / searchbar */
 .search-container {

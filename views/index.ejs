@@ -124,10 +124,18 @@
                     <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px" fill="grey"><path d="M11 0.7H13V23.3H11z" transform="rotate(-45.001 12 12)"/><path d="M0.7 11H23.3V13H0.7z" transform="rotate(-45.001 12 12)"/></svg>
                 </span>
             </summary>
-            <ul></ul>
-            <form>
-                    <input type="text" autocomplete="off">
-                    <button>
+            <ul id="messages" class="messages">
+                <li>
+                    <p class="blank-initial-message">
+                        Welkom bij Oba chatArt
+                        een chatArt room waar je kunt tekenen en chatten met andere leden <br>
+                        Typ hier jouw eerste bericht
+                    </p>
+                </li>
+            </ul>
+            <form id="form-chat" class="chat-form">
+                    <input id="chat-input"class="chat-input" type="text" autocomplete="off">
+                    <button type="submit">
                         <svg class="chat-submit" width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="40" height="40" rx="4" fill="black"/><g clip-path="url(#clip0_559_24)"><path d="M17.3333 22.6667L32 8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M32 8L23.3333 32C23.2748 32.1277 23.1809 32.2358 23.0627 32.3117C22.9445 32.3875 22.8071 32.4278 22.6666 32.4278C22.5262 32.4278 22.3887 32.3875 22.2706 32.3117C22.1524 32.2358 22.0585 32.1277 22 32L17.3333 22.6667L7.99997 18C7.87232 17.9415 7.76414 17.8476 7.6883 17.7294C7.61246 17.6112 7.57214 17.4738 7.57214 17.3333C7.57214 17.1929 7.61246 17.0554 7.6883 16.9373C7.76414 16.8191 7.87232 16.7252 7.99997 16.6667L32 8Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g>
@@ -135,14 +143,11 @@
                         </svg>
                     </button>
             </form>
-            <details id="draw">
-                <summary>
+            <a id="draw" class="link-draw" href="draw">
                     <svg class="palette-icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.9604 0.393369C8.19455 1.90902 1.93659 8.1513 0.405306 15.8936C-2.48539 30.5032 10.6946 41.394 20.6245 39.8549C23.8434 39.3549 25.4215 35.5892 23.9449 32.6908C22.1402 29.1438 24.7184 25.0031 28.7029 25.0031H34.9296C37.7265 25.0031 39.9922 22.6906 40 19.9015C39.9609 7.5888 28.7575 -2.09886 15.9604 0.393369ZM7.49923 25.0031C6.11638 25.0031 4.99917 23.8859 4.99917 22.5031C4.99917 21.1203 6.11638 20.0031 7.49923 20.0031C8.88207 20.0031 9.99928 21.1203 9.99928 22.5031C9.99928 23.8859 8.88207 25.0031 7.49923 25.0031ZM9.99928 15.003C8.61644 15.003 7.49923 13.8858 7.49923 12.5029C7.49923 11.1201 8.61644 10.0029 9.99928 10.0029C11.3821 10.0029 12.4993 11.1201 12.4993 12.5029C12.4993 13.8858 11.3821 15.003 9.99928 15.003ZM19.9995 10.0029C18.6167 10.0029 17.4995 8.88569 17.4995 7.50286C17.4995 6.12002 18.6167 5.00282 19.9995 5.00282C21.3824 5.00282 22.4996 6.12002 22.4996 7.50286C22.4996 8.88569 21.3824 10.0029 19.9995 10.0029ZM29.9998 15.003C28.6169 15.003 27.4997 13.8858 27.4997 12.5029C27.4997 11.1201 28.6169 10.0029 29.9998 10.0029C31.3826 10.0029 32.4998 11.1201 32.4998 12.5029C32.4998 13.8858 31.3826 15.003 29.9998 15.003Z" fill="#FF0000"/>
-                        </svg>
-                </summary>
-                <div style="height:200px;border:1px solid"></div>
-            </details>
+                    </svg>
+            </a>
         </div>
     </details>
 </details>

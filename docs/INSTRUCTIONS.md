@@ -42,7 +42,7 @@ In deze sprint maak je als team een real-time toepassing om je opdrachtgever te 
 
 1. Houdt een brainstorm over het te realiseren realtime product
 2. Maak een morphological chart om systematisch ideeën te genereren
-3. Zorg dat je tenminste 10 ideeën hebt verzamelt voor je verder gaat.
+3. Zorg dat je tenminste 10 ideeën hebt verzameld voor je verder gaat.
 
 ##### Materiaal voor de brainstorm
 
@@ -56,9 +56,9 @@ In de analysefase bespreek je als team welke werkzaamheden er zijn, wie wat gaat
 
 1. Koppel het _project board_ aan de nieuwe gezamenlijke _repository_ om bij te kunnen houden wie wat doet.
 2. Plan voor de aankomende weken alle standups en reviews en noteer de planning in jullie _project board_.
-3. Bekijk en bespreek álle _User Stories_ die bij het project horen. 
-4. Bespreek de _User Stories_ die jullie willen oppakken en bedenk wat je voor elke user story moet doen.
-5. Maak bij elke *User Story* meerdere taken aan in het *project board*, geef ze een prioriteit en voeg de namen toe van de mensen die eraan gaan werken. ProTip: Als taken te groot zijn (langer dan een dag duren) is het zinvol ze op te splitsen in meerdere kleinere taken.
+3. Bekijk álle _User Stories_ die bij het project horen. Bespreek met elkaar of er een user story bij zit die past bij de ideeën.
+4. Stel vervolgens samen een *real-time user story* op afgestemd op jullie ideeën. Maak zonnodig meerdere user stories.
+5. Maak voor de *real-time user story* meerdere taken aan in het *project board*, geef ze een prioriteit en voeg de namen toe van de mensen die eraan gaan werken. ProTip: Als taken te groot zijn (langer dan een dag duren) is het zinvol ze op te splitsen in meerdere kleinere taken.
 
 #### Materiaal planning
 
@@ -69,7 +69,7 @@ In de analysefase bespreek je als team welke werkzaamheden er zijn, wie wat gaat
 ### Ontwerpen
 In de ontwerpfase neem je ontwerpbeslissingen en zorg je dat je precies weet wat je moet gaan bouwen
 
-1. Kies onderbouwd een van de ideeën en maak daar een ontwerp voor
+1. Kies onderbouwd, een van de ideeën en maak daar een ontwerp voor
 2. Begin met het schetsen van wireframes, check die bij medestudenten en docenten en verbeter ze met de nieuwe inzichten.
 3. Werk jouw wireframes uit in Figma en link ze aan elkaar zodat een digitale wireflow ontstaat.
 4. Maak de schematische weergave van de state van jouw applicatie in een process-flow.
@@ -134,7 +134,8 @@ L: Je maakt aangeboden en zelf gevonden materie eigen en gebruikt dit bij leerta
 Deze opdracht is done als:
 
 - [ ] Er staat een werkende real-time web app online en deze is door meerdere gebruikers tegelijk te gebruiken
+- [ ] Er is een nieuwe user story opgesteld voor de real-time functionaliteit
 - [ ] De functionaliteit werkt zoals verwacht
 - [ ] De app is gedocumenteerd in de Readme van het project
-- [ ] Alle beslissingen zijn navolgbaar in de wiki van het project.
+- [ ] Alle beslissingen zijn navolgbaar in de wiki van het project
 - [ ] De opdrachtgever is blij verrast met het resultaat
