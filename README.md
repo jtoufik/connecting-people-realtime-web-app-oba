@@ -63,21 +63,6 @@ Daarnaast wilden we ook een Art room implementeren waar gebruikers samen konden 
 🔋 Node.js
 ⚙️ Socket.io
 
-## Gebruik
-<!-- Bij Gebruik staat de user story, hoe het werkt en wat je er mee kan. -->
-
-Gebruikers van de oba kunnen met deze webapp tekstueel en visueel communiceren. De  
-
-## Kenmerken
-<!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framwork of library gebruikt? -->
-
-Voor dit project is gebruik gemaakt van diverse technieken als:
-* NodeJS
-* Express
-* Socket.io
-* EJS
-* CSS
-* Javascript
 
 
 ## ⚙️Installatie
@@ -96,6 +81,11 @@ Houd er rekening mee dat je mogelijk de vereiste afhankelijkheden moet installer
 [Inspiratie tekenapp](https://www.youtube.com/watch?v=y84tBZo8GFo)
 
 [LottieFiles animatie Loading state](https://lottiefiles.com/web-player?lottie_url=https%3A%2F%2Fassets10.lottiefiles.com%2Fpackages%2Flf20_b5mxg937.json)
+
+
+[MDN DOCS SOCKET](https://socket.io/docs/v4/)
+
+[Youtube video crash course socket](https://www.youtube.com/watch?v=ZKEqqIO7n-k)
 
 
 ## 👾Licentie
